@@ -1,6 +1,7 @@
 package com.mtwproject.backend.mtwprojectbackend.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,45 @@ public class PassengerServiceImpl implements PassengerService {
     @Transactional(readOnly = true)
     public List<Passenger> findAll() {
         return (List<Passenger>) repository.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Passenger> findById(Long id) {
+       return repository.findById(id);
+    }
+
+    @Override
+    @Transactional
+    public void remove(Long id) {
+        repository.deleteById(id);
+        
+    }
+
+    @Override
+    @Transactional
+    public Passenger save(Passenger passenger) {
+       return repository.save(passenger);
+    }
+
+    @Override
+    @Transactional
+    public Optional<Passenger> update(Passenger passenger, Long id) {
+        Optional <Passenger> o = this.findById(id);
+        Passenger passengerOptional=null;
+        if( o.isPresent()){
+            Passenger passengerDb= o.orElseThrow();
+            passengerDb.setNames(passenger.getNames());
+            passengerDb.setLastnames(passenger.getLastnames());
+            passengerDb.setId_distrit(passenger.getId_distrit());
+            passengerDb.setPhone(passenger.getPhone());
+            passengerDb.setAdress(passenger.getAdress());
+            passengerDb.setPhone(passenger.getPhone());
+
+            passengerOptional= this.save(passengerDb);            
+        }
+
+        return Optional.ofNullable(passengerOptional);
+
     }
 }
