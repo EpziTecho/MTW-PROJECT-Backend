@@ -16,8 +16,8 @@ import lombok.Setter;
 public class Accounting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_accounting;
-    private Long id_service;
+    private Long idAccounting;
+    private Long idBooking;
     private String date;
     private String time;
     private String status;

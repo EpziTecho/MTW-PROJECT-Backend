@@ -11,26 +11,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity 
-@Table(name = "SERVICE")
+@Table(name = "BOOKING")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Booking {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_service;
+    private Long idBooking;
     private String date;
     private String time;
-    private Long id_company;
-    private Long id_area;
-    private Long id_passenger;
-    private String origen;
-    private Long id_distrito_origen;
-    private String destino;
-    private Long id_distrito_destino;
+    private Long idCompany;
+    private Long idArea;
+    private Long idPassenger;
+    private String pickUp;
+    private Long idDistritPickUp;
+    private String destination;
+    private Long idDistritDestination;
     private String notes;
-    private String tarifa;
-    private Long id_conductor;
+    private String price;
+    private Long idDriver;
     private String status;
-    private Long id_factura;
+    private Long idBill;
     
     
 }

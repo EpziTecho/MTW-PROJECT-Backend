@@ -16,12 +16,12 @@ import lombok.Setter;
 public class Bill {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_bill;
-    private String Series;
-    private String Number;
-    private String Date;
-    private String Subtotal;
-    private String IGV;
-    private String Total;
-    private Long id_moneda;       
+    private Long idBill;
+    private String series;
+    private String number;
+    private String date;
+    private String subTotal;
+    private String igv;
+    private String total;
+    private Long idCurrency;       
 }

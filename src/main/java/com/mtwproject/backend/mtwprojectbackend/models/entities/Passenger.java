@@ -16,12 +16,12 @@ import lombok.Setter;
 public class Passenger {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_passenger;
+    private Long idPassenger;
     private String names;
-    private String lastnames;
-    private Long id_distrit;
-    private String Adress;
-    private String Phone;
+    private String lastNames;
+    private Long idDistrit;
+    private String adress;
+    private String phone;
   
 
 }

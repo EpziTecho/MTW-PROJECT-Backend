@@ -49,10 +49,10 @@ public class CompanyServiceImpl implements CompanyService {
         Company companyOptional=null;
         if(o.isPresent()){
             Company companyDb= o.orElseThrow();
-            companyDb.setBusiness_name(company.getBusiness_name());
-            companyDb.setIdnumber(company.getIdnumber());
+            companyDb.setBusinessName(company.getBusinessName());
+            companyDb.setIdNumber(company.getIdNumber());
             companyDb.setAdress(company.getAdress());
-            companyDb.setTradename(company.getTradename());
+            companyDb.setTradeName(company.getTradeName());
             companyDb.setPhone(company.getPhone());
             companyOptional=this.save(companyDb);
         }

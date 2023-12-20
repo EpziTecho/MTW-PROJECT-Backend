@@ -17,15 +17,15 @@ import lombok.Setter;
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_company;
+    private Long idCompany;
 
-    private String business_name;
+    private String businessName;
 
-    private String idnumber;
+    private String idNumber;
 
     private String adress;
 
-    private String tradename;
+    private String tradeName;
 
     private String phone;
     

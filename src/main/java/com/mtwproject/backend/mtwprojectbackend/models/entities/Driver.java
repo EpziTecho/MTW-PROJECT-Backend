@@ -16,14 +16,14 @@ import lombok.Setter;
 public class Driver {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_driver;
+    private Long idDriver;
     private String names;
-    private String lastnames;
-    private String idnumber;
+    private String lastNames;
+    private String idNumber;
     private String phone;
     private String model;
     private String brand;
-    private String plate;
+    private String carPlate;
     private String year;
     private String color;
 

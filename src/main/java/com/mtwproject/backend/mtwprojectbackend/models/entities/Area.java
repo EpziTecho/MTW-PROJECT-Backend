@@ -17,7 +17,7 @@ import lombok.Setter;
 public class Area {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_area;
+    private Long idArea;
     @Column(unique = true)
     private String name;
 

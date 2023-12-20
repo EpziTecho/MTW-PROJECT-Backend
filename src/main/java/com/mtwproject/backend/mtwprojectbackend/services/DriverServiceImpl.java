@@ -51,12 +51,12 @@ public class DriverServiceImpl implements DriverService {
         if(o.isPresent()){
             Driver driverDb= o.orElseThrow();
             driverDb.setNames(driver.getNames());
-            driverDb.setLastnames(driver.getLastnames());
-            driverDb.setIdnumber(driver.getIdnumber());
+            driverDb.setLastNames(driver.getLastNames());
+            driverDb.setIdNumber(driver.getIdNumber());
             driverDb.setPhone(driver.getPhone());
             driverDb.setModel(driver.getModel());
             driverDb.setBrand(driver.getBrand());
-            driverDb.setPlate(driver.getPlate());
+            driverDb.setCarPlate(driver.getCarPlate());
             driverDb.setYear(driver.getYear());
             driverDb.setColor(driver.getColor());
             driverOptional=this.save(driverDb);

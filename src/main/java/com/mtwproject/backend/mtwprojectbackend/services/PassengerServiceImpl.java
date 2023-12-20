@@ -49,8 +49,8 @@ public class PassengerServiceImpl implements PassengerService {
         if( o.isPresent()){
             Passenger passengerDb= o.orElseThrow();
             passengerDb.setNames(passenger.getNames());
-            passengerDb.setLastnames(passenger.getLastnames());
-            passengerDb.setId_distrit(passenger.getId_distrit());
+            passengerDb.setLastNames(passenger.getLastNames());
+            passengerDb.setIdDistrit(passenger.getIdDistrit());
             passengerDb.setPhone(passenger.getPhone());
             passengerDb.setAdress(passenger.getAdress());
             passengerDb.setPhone(passenger.getPhone());

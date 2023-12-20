@@ -48,7 +48,7 @@ public class AccountingServiceImpl implements AccountingService {
          Accounting accountingOptional=null;
             if(o.isPresent()){
                 Accounting accountingDb= o.orElseThrow();
-                accountingDb.setId_service(accounting.getId_service());
+                accountingDb.setIdBooking(accounting.getIdBooking());
                 accountingDb.setDate(accounting.getDate());
                 accountingDb.setTime(accounting.getTime());
                 accountingDb.setStatus(accounting.getStatus());

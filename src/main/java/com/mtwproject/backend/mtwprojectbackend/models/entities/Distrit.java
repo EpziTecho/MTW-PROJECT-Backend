@@ -16,7 +16,7 @@ public class Distrit {
 
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_distrit;
+    private Long idDistrit;
     private String name;
    
 

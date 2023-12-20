@@ -17,7 +17,7 @@ public class Currency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_currency;
+    private Long idCurrency;
 
     private String name;
     
