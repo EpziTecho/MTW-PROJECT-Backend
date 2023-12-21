@@ -15,4 +15,6 @@ public interface UsersService {
     Optional<Users> update (Users user , Long id);
 
     void remove (Long id);
+
+    Optional<Users> findByUsername(String username);
 }

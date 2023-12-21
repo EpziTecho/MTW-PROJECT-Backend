@@ -56,5 +56,9 @@ public class UsersServiceImpl implements UsersService{
         repository.deleteById(id);
         
     }
-    
+     @Override
+    @Transactional(readOnly = true)
+    public Optional<Users> findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
 }
