@@ -12,7 +12,7 @@ import com.mtwproject.backend.mtwprojectbackend.services.BillService;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:4200")
 public class BillController {
 
     @Autowired
