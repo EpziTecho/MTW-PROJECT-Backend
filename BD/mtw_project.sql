@@ -165,11 +165,11 @@ CREATE TABLE `company` (
   `idCompany` int NOT NULL AUTO_INCREMENT,
   `businessName` varchar(100) DEFAULT NULL,
   `idNumber` varchar(100) DEFAULT NULL,
-  `adress` varchar(100) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
   `tradeName` varchar(100) DEFAULT NULL,
   `phone` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idCompany`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +178,7 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
-INSERT INTO `company` VALUES (1,'Company 1','12345678901','Direccion 1','Tradename 1','123456789'),(2,'Company 2','23456789012','Direccion 2','Tradename 2','234567890'),(3,'Company 3','34567890123','Direccion 3','Tradename 3','345678901'),(4,'Company 4','45678901234','Direccion 4','Tradename 4','456789012'),(5,'Company 5','56789012345','Direccion 5','Tradename 5','567890123'),(6,'Company 6','67890123456','Direccion 6','Tradename 6','678901234'),(7,'Company 7','78901234567','Direccion 7','Tradename 7','789012345'),(8,'Company 8','89012345678','Direccion 8','Tradename 8','890123456'),(9,'Company 9','90123456789','Direccion 9','Tradename 9','901234567'),(10,'Company 10','01234567890','Direccion 10','Tradename 10','012345678');
+INSERT INTO `company` VALUES (1,'Jorge','12345678901','Direccion 1','Tradename 1','123456789'),(2,'Josue','23456789012','Direccion 2','Tradename 2','234567890'),(3,'Joseline','34567890123','Direccion 3','Tradename 3','345678901'),(4,'Maria','45678901234','Direccion 4','Tradename 4','456789012'),(5,'Martin','56789012345','Direccion 5','Tradename 5','567890123'),(6,'Hugo','67890123456','Direccion 6','Tradename 6','678901234'),(7,'Humberto','78901234567','Direccion 7','Tradename 7','789012345'),(8,'Gabriel','89012345678','Direccion 8','Tradename 8','890123456'),(9,'Gaston','90123456789','Direccion 9','Tradename 9','901234567'),(10,'Sergio','01234567890','Direccion 10','Tradename 10','012345678'),(11,'Serena','123456789011','Direccion11','Tradename11','123456789'),(12,'Peter','20232012312312','Direccion 12',NULL,NULL),(13,'Pedro','20202020202022',NULL,NULL,NULL),(14,'Liz','20208989898','Direccion Liz',NULL,NULL),(15,'Liz','20208989898','Direccion Liz',NULL,NULL),(16,'Liz','20208989898','Direccion Liz',NULL,NULL),(17,'Javier','2123123123','Direccion Liz',NULL,NULL),(18,'Rocio','22131231233','Direccion Rocio',NULL,NULL),(19,'Marcos','20003456782','Direccion Rocio',NULL,NULL),(20,'Brandom','12345678902','Direccion Brandom',NULL,NULL),(21,'Ramon','12345678903','Direccion Ramon',NULL,NULL);
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -469,4 +469,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-21 21:10:48
+-- Dump completed on 2023-12-22 13:12:46
