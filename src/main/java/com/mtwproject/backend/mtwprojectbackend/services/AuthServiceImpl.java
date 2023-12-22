@@ -17,13 +17,13 @@ public class AuthServiceImpl implements AuthService {
     private UsersService usersService;
 
     @Override
-    public ResponseEntity<String> authenticateUser(LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(LoginRequest loginRequest) {
         Optional<Users> userOptional = usersService.findByUsername(loginRequest.getUsername());
 
         if (userOptional.isPresent()) {
             Users user = userOptional.get();
             if (user.getPassword().equals(loginRequest.getPassword())) {
-                return ResponseEntity.ok("Login exitoso");
+                return ResponseEntity.ok(user); // Devolverá el objeto Users en el cuerpo de la respuesta
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
             }
