@@ -84,9 +84,9 @@ public class CompanyController {
     @GetMapping("/search")
 public ResponseEntity<List<Company>> search(@RequestParam("q") String query) {
     List<Company> companies = companyService.findByCriteria(query);
-    if (companies.isEmpty()) {
-        return ResponseEntity.notFound().build();
-    }
+    // if (companies.isEmpty()) {
+    //     return ResponseEntity.notFound().build();
+    // }
     return ResponseEntity.ok(companies);
 }
 }
