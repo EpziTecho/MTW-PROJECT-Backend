@@ -35,6 +35,7 @@ public class Company {
 
     private String tradeName;
 
+    @Pattern(regexp = "^[0-9+()\\s]*$", message = " El numero de telefono esta en un formato invalido")
     private String phone;
     
 }
