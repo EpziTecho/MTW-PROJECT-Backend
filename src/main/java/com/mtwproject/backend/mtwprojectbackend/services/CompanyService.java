@@ -17,5 +17,8 @@ public interface CompanyService {
 
     void remove (Long id);
     
-    
+    List<Company> findByCriteria(String searchCriteria);
+
+    Optional<Company> findByBusinessName(String businessName);
+    Optional<Company> findByIdNumber(String idNumber);
 }

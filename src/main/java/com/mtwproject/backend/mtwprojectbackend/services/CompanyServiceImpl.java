@@ -51,13 +51,28 @@ public class CompanyServiceImpl implements CompanyService {
             Company companyDb= o.orElseThrow();
             companyDb.setBusinessName(company.getBusinessName());
             companyDb.setIdNumber(company.getIdNumber());
-            companyDb.setAdress(company.getAdress());
+            companyDb.setAddress(company.getAddress());
             companyDb.setTradeName(company.getTradeName());
             companyDb.setPhone(company.getPhone());
             companyOptional=this.save(companyDb);
         }
         return Optional.ofNullable(companyOptional);
     }
+    @Override
+    public List<Company> findByCriteria(String searchCriteria) {
+        return repository.findByBusinessNameContainingOrIdNumberContainingOrPhoneContaining(searchCriteria, searchCriteria, searchCriteria);
+        
+    }
 
+    @Override
+    public Optional<Company> findByBusinessName(String businessName) {
+        return repository.findByBusinessName(businessName);
+    }
+
+    @Override
+    public Optional<Company> findByIdNumber(String idNumber) {
+        
+        return repository.findByIdNumber(idNumber);
+    }
     
 }
