@@ -14,7 +14,6 @@ import com.mtwproject.backend.mtwprojectbackend.services.AuthService;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
 
     @Autowired
