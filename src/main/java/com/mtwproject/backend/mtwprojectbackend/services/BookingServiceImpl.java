@@ -43,6 +43,7 @@ public class BookingServiceImpl implements BookingService {
                 bookingDb.setDate(booking.getDate());
                 bookingDb.setTime(booking.getTime());
                 bookingDb.setIdCompany(booking.getIdCompany());
+                bookingDb.setApplicant(booking.getApplicant());
                 bookingDb.setIdArea(booking.getIdArea());
                 bookingDb.setIdPassenger(booking.getIdPassenger());
                 bookingDb.setPickUp(booking.getPickUp());
