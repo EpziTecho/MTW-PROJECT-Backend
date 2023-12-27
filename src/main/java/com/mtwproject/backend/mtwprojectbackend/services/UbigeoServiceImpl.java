@@ -65,5 +65,32 @@ public class UbigeoServiceImpl implements UbigeoService{
         return Optional.ofNullable(ubigeoOptional);
     }
         
-    
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ubigeo> findByDepartment(String department) {
+        return repository.findByDepartment(department);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ubigeo> findByProvince(String province) {
+        return repository.findByProvince(province);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ubigeo> findByDistrict(String district) {
+        return repository.findByDistrict(district);
+    }
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ubigeo> findByDepartmentAndProvince(String department, String province) {
+        return repository.findByDepartmentAndProvince(department, province);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ubigeo> findByDepartmentAndProvinceAndDistrict(String department, String province, String district) {
+        return repository.findByDepartmentAndProvinceAndDistrict(department, province, district);
+    }
 }

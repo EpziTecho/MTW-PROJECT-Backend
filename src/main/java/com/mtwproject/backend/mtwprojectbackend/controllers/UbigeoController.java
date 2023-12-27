@@ -67,5 +67,37 @@ public class UbigeoController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/department/{department}")
+    public List<Ubigeo> findByDepartment(@PathVariable String department) {
+        return ubigeoService.findByDepartment(department);
+    }
+
+    // @GetMapping("/province/{province}")
+    // public List<Ubigeo> findByProvince(@PathVariable String province) {
+    //     return ubigeoService.findByProvince(province);
+    // }
+
+    // @GetMapping("/district/{district}")
+    // public List<Ubigeo> findByDistrict(@PathVariable String district) {
+    //     return ubigeoService.findByDistrict(district);
+    // }
+   
+    // Provincia dentro del departamento especificado
+    @GetMapping("/department/{department}/province/{province}")
+    public List<Ubigeo> findByDepartmentAndProvince(
+            @PathVariable String department,
+            @PathVariable String province) {
+        return ubigeoService.findByDepartmentAndProvince(department, province);
+    }
+
+    // Distrito dentro de un departamento y provincia específicos
+    @GetMapping("/department/{department}/province/{province}/district/{district}")
+    public List<Ubigeo> findByDepartmentAndProvinceAndDistrict(
+            @PathVariable String department,
+            @PathVariable String province,
+            @PathVariable String district) {
+        return ubigeoService.findByDepartmentAndProvinceAndDistrict(department, province, district);
+    }
 }
 

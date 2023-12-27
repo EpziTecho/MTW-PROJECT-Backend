@@ -17,7 +17,14 @@ public interface UbigeoService {
 
     void remove (Long id);
 
+    List<Ubigeo> findByDepartment(String department);
+
+    List<Ubigeo> findByProvince(String province);
+
+    List<Ubigeo> findByDistrict(String district);
     
-    
+    List<Ubigeo> findByDepartmentAndProvince(String department, String province);
+
+    List<Ubigeo> findByDepartmentAndProvinceAndDistrict(String department, String province, String district);
     
 }
