@@ -10,14 +10,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity 
-@Table(name = "DISTRIT")
+@Table(name = "UBIGEO")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class Distrit {
+public class Ubigeo {
 
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idDistrit;
+    private Long idUbigeo;
+    private String department;
+    private String province;
+    private String district;
     private String name;
+    private String ubigeo;
    
 
 

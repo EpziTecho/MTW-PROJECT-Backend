@@ -17,52 +17,52 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mtwproject.backend.mtwprojectbackend.models.entities.Distrit;
-import com.mtwproject.backend.mtwprojectbackend.services.DistritService;
+import com.mtwproject.backend.mtwprojectbackend.models.entities.Ubigeo;
+import com.mtwproject.backend.mtwprojectbackend.services.UbigeoService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/distrit")
-public class DistritController {
+@RequestMapping("/ubigeo")
+public class UbigeoController {
     
     @Autowired
-    private DistritService distritService;
+    private UbigeoService ubigeoService;
 
 
     @GetMapping
-    public List <Distrit > list(){
-        return distritService.findAll();
+    public List <Ubigeo > list(){
+        return ubigeoService.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> show (@PathVariable Long id){
 
-        Optional <Distrit> distritOptional= distritService.findById(id);
-        if(distritOptional.isPresent()){
-            return ResponseEntity.ok(distritOptional.orElseThrow());
+        Optional <Ubigeo> UbigeoOptional= ubigeoService.findById(id);
+        if(UbigeoOptional.isPresent()){
+            return ResponseEntity.ok(UbigeoOptional.orElseThrow());
         }   
         return ResponseEntity.notFound().build();
 
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Distrit distrit){
-        return ResponseEntity.status(HttpStatus.CREATED).body(distritService.save(distrit));
+    public ResponseEntity<?> create(@RequestBody Ubigeo ubigeo){
+        return ResponseEntity.status(HttpStatus.CREATED).body(ubigeoService.save(ubigeo));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Distrit distrit, @PathVariable Long id){
-        Optional <Distrit> distritOptional= distritService.update(distrit, id);
-        if(distritOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.CREATED).body(distritOptional.orElseThrow());
+    public ResponseEntity<?> update(@RequestBody Ubigeo ubigeo, @PathVariable Long id){
+        Optional <Ubigeo> ubigeoOptional= ubigeoService.update(ubigeo, id);
+        if(ubigeoOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.CREATED).body(ubigeoOptional.orElseThrow());
         }
         return ResponseEntity.notFound().build();
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> remove(@PathVariable Long id){
-        Optional <Distrit> distritOptional= distritService.findById(id);
-        if(distritOptional.isPresent()){
-            distritService.remove(id);
+        Optional <Ubigeo> ubigeoOptional= ubigeoService.findById(id);
+        if(ubigeoOptional.isPresent()){
+            ubigeoService.remove(id);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();

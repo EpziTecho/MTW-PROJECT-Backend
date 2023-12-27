@@ -1,5 +1,6 @@
 package com.mtwproject.backend.mtwprojectbackend.models.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,19 +18,45 @@ public class Booking {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idBooking;
+
+    @Column(nullable = false)
     private String date;
+
+    @Column(nullable = false)
     private String time;
+
+    @Column(nullable = false)
     private Long idCompany;
+
+    private String applicant;
+
     private Long idArea;
+
+    @Column(nullable = false)
     private Long idPassenger;
+   
+    @Column(nullable = false)
     private String pickUp;
+
+    @Column(nullable = false)
     private Long idDistritPickUp;
+    
+    @Column(nullable = false)
     private String destination;
+    
+    @Column(nullable = false)
     private Long idDistritDestination;
+    
+    @Column(nullable = false)
     private String notes;
-    private String price;
+    
+    @Column(nullable = false)
+    private Double price;
+
     private Long idDriver;
+
     private String status;
+
     private Long idBill;
     
     
