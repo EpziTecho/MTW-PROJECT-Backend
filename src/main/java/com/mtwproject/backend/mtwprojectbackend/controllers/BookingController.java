@@ -1,5 +1,6 @@
 package com.mtwproject.backend.mtwprojectbackend.controllers;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +69,39 @@ public class BookingController {
         }
         return ResponseEntity.notFound().build();
     }
+    
 
+    // Cambiar el estado de la reserva a "En proceso"
+    @PutMapping("/status/enProceso")
+    public ResponseEntity<?> updateStatustoenProceso(@RequestBody Booking booking) {
+        String result = bookingService.updateStatusToEnProceso(booking.getIdBooking());
+        
+        HashMap<String, Object> response = new HashMap<>();
+        response.put("message", result);
+    
+        if (result.equals("La reserva no existe")) {
+            response.put("error", true);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+    
+        return ResponseEntity.ok(response);
+    }
+
+    // Cambiar el estado de la reserva a "Finalizado"
+    @PutMapping("/status/finalizado")
+    public ResponseEntity<?> updateStatustoFinalizado(@RequestBody Booking booking) {
+        String result = bookingService.updateStatusToFinalizado(booking.getIdBooking());
+        
+        HashMap<String, Object> response = new HashMap<>();
+        response.put("message", result);
+    
+        if (result.equals("La reserva no existe")) {
+            response.put("error", true);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+    
+        return ResponseEntity.ok(response);
+    }
+     
     
 }

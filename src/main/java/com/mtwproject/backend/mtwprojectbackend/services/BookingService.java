@@ -16,4 +16,7 @@ public interface BookingService {
     Optional<Booking> update (Booking booking , Long id);
 
     void remove (Long id);
+    
+    String updateStatusToEnProceso(Long id);
+    String updateStatusToFinalizado(Long id);
 }
