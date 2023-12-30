@@ -39,17 +39,20 @@ public class Booking {
     private String pickUp;
 
     @Column(nullable = false)
-    private Long idDistritPickUp;
+    private Long idUbigeoPickUp;
     
     @Column(nullable = false)
     private String destination;
     
     @Column(nullable = false)
-    private Long idDistritDestination;
+    private Long idUbigeoDestination;
     
     @Column(nullable = false)
     private String notes;
     
+    @Column(nullable = false)
+    private Double idCurrency;
+
     @Column(nullable = false)
     private Double price;
 
