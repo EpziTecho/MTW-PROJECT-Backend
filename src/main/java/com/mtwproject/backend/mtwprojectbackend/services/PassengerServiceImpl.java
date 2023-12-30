@@ -13,6 +13,9 @@ import com.mtwproject.backend.mtwprojectbackend.repositories.PassengerRepository
 @Service
 public class PassengerServiceImpl implements PassengerService {
 
+    private static final String ACTIVE_STATUS = "Activo";
+    private static final String INACTIVE_STATUS = "Inactivo";
+
     @Autowired
     private PassengerRepository repository;
 
@@ -34,10 +37,22 @@ public class PassengerServiceImpl implements PassengerService {
         repository.deleteById(id);
         
     }
+    
+
+    @Override
+    @Transactional
+    public String deactivatePassenger(Long id) {
+        return repository.findById(id).map(passenger -> {
+            passenger.setStatus(INACTIVE_STATUS);
+            repository.save(passenger);
+            return "Pasajero desactivado";
+        }).orElseThrow(() -> new RuntimeException("No se pudo desactivar el pasajero"));
+    }
 
     @Override
     @Transactional
     public Passenger save(Passenger passenger) {
+        passenger.setStatus(ACTIVE_STATUS);
        return repository.save(passenger);
     }
 
@@ -50,7 +65,8 @@ public class PassengerServiceImpl implements PassengerService {
             Passenger passengerDb= o.orElseThrow();
             passengerDb.setNames(passenger.getNames());
             passengerDb.setLastNames(passenger.getLastNames());
-            passengerDb.setIdDistrit(passenger.getIdDistrit());
+            passengerDb.setIdUbigeo(passenger.getIdUbigeo());
+            passengerDb.setStatus(passenger.getStatus());
             passengerDb.setPhone(passenger.getPhone());
             passengerDb.setAdress(passenger.getAdress());
             passengerDb.setPhone(passenger.getPhone());
