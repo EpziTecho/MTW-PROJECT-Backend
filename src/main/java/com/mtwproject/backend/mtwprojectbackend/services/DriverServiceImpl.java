@@ -13,6 +13,9 @@ import com.mtwproject.backend.mtwprojectbackend.repositories.DriverRepository;
 
 @Service
 public class DriverServiceImpl implements DriverService {
+
+    private static final String ACTIVE_STATUS = "Activo";
+    private static final String INACTIVE_STATUS = "Inactivo";
     
     @Autowired
     private DriverRepository repository;
@@ -39,7 +42,17 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     @Transactional
+    public String deactivateDriver(Long id) {
+        return repository.findById(id).map(driver -> {
+            driver.setStatus(INACTIVE_STATUS);
+            repository.save(driver);
+            return "Conductor desactivado";
+        }).orElseThrow(() -> new RuntimeException("No se pudo desactivar el conductor"));
+    }
+    @Override
+    @Transactional
     public Driver save(Driver driver) {
+        driver.setStatus(ACTIVE_STATUS);
         return repository.save(driver);
     }
 
@@ -54,6 +67,7 @@ public class DriverServiceImpl implements DriverService {
             driverDb.setLastNames(driver.getLastNames());
             driverDb.setIdNumber(driver.getIdNumber());
             driverDb.setPhone(driver.getPhone());
+            driverDb.setStatus(driver.getStatus());
             driverDb.setModel(driver.getModel());
             driverDb.setBrand(driver.getBrand());
             driverDb.setCarPlate(driver.getCarPlate());
