@@ -16,5 +16,6 @@ public interface PassengerService {
 
     void remove (Long id);
     
+    String deactivatePassenger(Long id);
     
 }

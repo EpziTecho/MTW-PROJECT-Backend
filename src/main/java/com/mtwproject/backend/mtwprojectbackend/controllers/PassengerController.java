@@ -1,5 +1,6 @@
 package com.mtwproject.backend.mtwprojectbackend.controllers;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,6 +67,19 @@ public class PassengerController {
         return ResponseEntity.notFound().build();
     }
 
+    @PutMapping("/delete")
+    public ResponseEntity<?> deactivatePassenger(@RequestBody Passenger passenger){
+       String result = servicepassenger.deactivatePassenger(passenger.getIdPassenger());
+       HashMap<String, Object> response = new HashMap<>(); 
+       response.put("message", result); 
+       if(result.equals("Pasajero desactivado")) {
+           return ResponseEntity.ok(response);
+       }else {
+        response.put("message", "No se pudo desactivar el conductor");
+        response.put("error", true);
+         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);       
+       }
 
+}
 }
 

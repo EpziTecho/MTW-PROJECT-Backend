@@ -1,5 +1,6 @@
 package com.mtwproject.backend.mtwprojectbackend.controllers;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +55,21 @@ public class DriverController {
             return ResponseEntity.status(HttpStatus.CREATED).body(driverOptional.orElseThrow());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    // Desactivar conductor
+    @PutMapping("/delete")
+    public ResponseEntity<?> deactivateDriver(@RequestBody Driver driver){
+       String result = driverService.deactivateDriver(driver.getIdDriver());
+       HashMap<String, Object> response = new HashMap<>(); 
+       response.put("message", result); 
+     if (result.equals("Conductor desactivado")) {
+         return ResponseEntity.ok(response);
+     } else {
+        response.put("message", "No se pudo desactivar el conductor");
+        response.put("error", true);
+         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);        
+     }  
     }
 
 

@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mtwproject.backend.mtwprojectbackend.models.entities.Booking;
 import com.mtwproject.backend.mtwprojectbackend.services.BookingService;
 
+import lombok.extern.apachecommons.CommonsLog;
+
 
 
 @RestController
@@ -30,78 +32,79 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
-    @GetMapping   
-    public List<Booking> list(){
-        return bookingService.findAll();
+    @GetMapping({"", "/"})
+    public ResponseEntity<List<Booking>> bookingList(){
+       List<Booking> bookingList = bookingService.findAll();
+       return ResponseEntity.ok(bookingList);
     }
 
    
-    @GetMapping("/{id}")
-    public ResponseEntity<?> show(@PathVariable  Long id){
-        Optional <Booking> bookingOptional= bookingService.findById(id);
-        if(bookingOptional.isPresent()){
-            return ResponseEntity.ok(bookingOptional.orElseThrow());
-        }
-        return ResponseEntity.notFound().build();
+    // @GetMapping("/{id}")
+    // public ResponseEntity<?> show(@PathVariable  Long id){
+    //     Optional <Booking> bookingOptional= bookingService.findById(id);
+    //     if(bookingOptional.isPresent()){
+    //         return ResponseEntity.ok(bookingOptional.orElseThrow());
+    //     }
+    //     return ResponseEntity.notFound().build();
         
-    }
+    // }
     
-    @PostMapping
-    public ResponseEntity<?> create(@RequestBody Booking booking){
-        return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.save(booking));
-    }
+    // @PostMapping
+    // public ResponseEntity<?> create(@RequestBody Booking booking){
+    //     return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.save(booking));
+    // }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Booking booking, @PathVariable Long id){
-        Optional < Booking> bookingOptional= bookingService.update(booking, id);
-        if(bookingOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.CREATED).body(bookingOptional.orElseThrow());
-        }
-        return ResponseEntity.notFound().build();
-    }
+    // @PutMapping("/{id}")
+    // public ResponseEntity<?> update(@RequestBody Booking booking, @PathVariable Long id){
+    //     Optional < Booking> bookingOptional= bookingService.update(booking, id);
+    //     if(bookingOptional.isPresent()){
+    //         return ResponseEntity.status(HttpStatus.CREATED).body(bookingOptional.orElseThrow());
+    //     }
+    //     return ResponseEntity.notFound().build();
+    // }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> remove(@PathVariable Long id){
-        Optional <Booking> bookingOptional= bookingService.findById(id);
-        if(bookingOptional.isPresent()){
-            bookingService.remove(id);
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
-    }
+    // @DeleteMapping("/{id}")
+    // public ResponseEntity<?> remove(@PathVariable Long id){
+    //     Optional <Booking> bookingOptional= bookingService.findById(id);
+    //     if(bookingOptional.isPresent()){
+    //         bookingService.remove(id);
+    //         return ResponseEntity.ok().build();
+    //     }
+    //     return ResponseEntity.notFound().build();
+    // }
     
 
-    // Cambiar el estado de la reserva a "En proceso"
-    @PutMapping("/status/enProceso")
-    public ResponseEntity<?> updateStatustoenProceso(@RequestBody Booking booking) {
-        String result = bookingService.updateStatusToEnProceso(booking.getIdBooking());
+    // // Cambiar el estado de la reserva a "En proceso"
+    // @PutMapping("/status/enProceso")
+    // public ResponseEntity<?> updateStatustoenProceso(@RequestBody Booking booking) {
+    //     String result = bookingService.updateStatusToEnProceso(booking.getIdBooking());
         
-        HashMap<String, Object> response = new HashMap<>();
-        response.put("message", result);
+    //     HashMap<String, Object> response = new HashMap<>();
+    //     response.put("message", result);
     
-        if (result.equals("La reserva no existe")) {
-            response.put("error", true);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-        }
+    //     if (result.equals("La reserva no existe")) {
+    //         response.put("error", true);
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    //     }
     
-        return ResponseEntity.ok(response);
-    }
+    //     return ResponseEntity.ok(response);
+    // }
 
-    // Cambiar el estado de la reserva a "Finalizado"
-    @PutMapping("/status/finalizado")
-    public ResponseEntity<?> updateStatustoFinalizado(@RequestBody Booking booking) {
-        String result = bookingService.updateStatusToFinalizado(booking.getIdBooking());
+    // // Cambiar el estado de la reserva a "Finalizado"
+    // @PutMapping("/status/finalizado")
+    // public ResponseEntity<?> updateStatustoFinalizado(@RequestBody Booking booking) {
+    //     String result = bookingService.updateStatusToFinalizado(booking.getIdBooking());
         
-        HashMap<String, Object> response = new HashMap<>();
-        response.put("message", result);
+    //     HashMap<String, Object> response = new HashMap<>();
+    //     response.put("message", result);
     
-        if (result.equals("La reserva no existe")) {
-            response.put("error", true);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-        }
+    //     if (result.equals("La reserva no existe")) {
+    //         response.put("error", true);
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    //     }
     
-        return ResponseEntity.ok(response);
-    }
+    //     return ResponseEntity.ok(response);
+    // }
      
     
 }

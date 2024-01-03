@@ -17,4 +17,5 @@ public interface DriverService {
 
     void remove (Long id);
     
+    String deactivateDriver(Long id);
 }
