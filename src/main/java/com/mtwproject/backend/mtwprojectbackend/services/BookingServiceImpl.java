@@ -24,7 +24,18 @@ public class BookingServiceImpl implements BookingService {
     public List<Booking> findAll() {
         return (List<Booking>) repository.findAll();
     }
-
- 
+    @Override
+    public Optional<Booking> findById(Long id) {
+        return repository.findById(id);
+    }
     
+    @Override
+    public List<Booking> findByCompany(String company) {
+        return repository.findByCompany(company);
+    }
+
+    @Override
+    public Booking saveBooking(Booking booking) {
+        return repository.save(booking);
+    }
 }
