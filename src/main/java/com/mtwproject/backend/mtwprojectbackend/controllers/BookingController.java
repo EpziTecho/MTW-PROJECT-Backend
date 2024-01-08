@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mtwproject.backend.mtwprojectbackend.models.entities.Booking;
 import com.mtwproject.backend.mtwprojectbackend.services.BookingService;
+import com.mtwproject.backend.mtwprojectbackend.services.BookingServiceImpl;
 
-import lombok.extern.apachecommons.CommonsLog;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -33,12 +35,35 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
+    //Listar todas las reservas
     @GetMapping({"", "/"})
     public ResponseEntity<List<Booking>> bookingList(){
        List<Booking> bookingList = bookingService.findAll();
        return ResponseEntity.ok(bookingList);
     }
 
+    //Buscar reserva por id
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<?> findBookingById(@PathVariable("id") Long idBooking){
+        HashMap<String,Object> message = new HashMap<>();
+        try {
+            Optional<Booking> booking = bookingService.findById(idBooking);
+            if (booking.isEmpty()) {
+                message.put("status", "404");
+                message.put("message", "La reserva no existe");
+                return ResponseEntity.ok(message);
+            }
+            message.put("status", "200");
+            message.put("message", "La reserva se ha encontrado correctamente");
+            message.put("booking", booking);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            message.put("status", "500");
+            message.put("message", "Se produjo un error al buscar la reserva");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+        }
+    }
 
     //insertar nueva reserva
    @PostMapping
@@ -106,5 +131,83 @@ public class BookingController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
     }
+
+    //Listar reservas por parametros : idBooking, applicant, idCompany, idPassenger, idDriver
+    @GetMapping("filterBookingsByParams")
+    @ResponseBody
+    public ResponseEntity<?> filterBookingsByParams(@RequestParam(name = "idBooking", required = false, defaultValue="") Long idBooking,
+    @RequestParam(name = "applicant", required = false, defaultValue="") String applicant,
+    @RequestParam(name = "idCompany", required = false, defaultValue="") Long idCompany,
+    @RequestParam(name = "idPassenger", required = false, defaultValue="") Long idPassenger,
+    @RequestParam(name = "idDriver", required = false, defaultValue="") Long idDriver){
+        HashMap<String,Object> message = new HashMap<>();
+        try {
+            List<Booking> bookingList = bookingService.listBookingsByParams(idBooking, applicant, idCompany, idPassenger, idDriver);
+            if (bookingList.isEmpty()) {
+                message.put("status", "404");
+                message.put("message", "No se encontraron reservas");
+                return ResponseEntity.ok(message);
+            }
+            message.put("status", "200");
+            message.put("message", "Se encontraron reservas");
+            message.put("bookingList", bookingList);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            message.put("status", "500");
+            message.put("message", "Se produjo un error al buscar las reservas");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+        }
+    }
+    
+    @PutMapping("/finalize/{id}")
+    @ResponseBody
+    public ResponseEntity<?> finalizeBooking(@PathVariable("id") Long idBooking) {
+    HashMap<String, Object> message = new HashMap<>();
+    try {
+        Optional<Booking> bookingOptional = bookingService.findById(idBooking);
+        if (bookingOptional.isEmpty()) {
+            message.put("status", "404");
+            message.put("message", "La reserva no existe");
+            return ResponseEntity.ok(message);
+        }
+        Booking booking = bookingOptional.get();
+        booking.setStatus(BookingServiceImpl.FINALIZED_STATUS);
+        bookingService.saveBooking(booking);
+        message.put("status", "200");
+        message.put("message", "La reserva se ha finalizado correctamente");
+        message.put("booking", booking);
+        return ResponseEntity.ok(message);
+        } catch (Exception e) {
+        message.put("status", "500");
+        message.put("message", "Se produjo un error al finalizar la reserva");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+        }
+    }
+
+    @PutMapping("/inProcess/{id}")
+    @ResponseBody
+    public ResponseEntity<?> setStatusToEnProcessBooking(@PathVariable("id") Long idBooking) {
+    HashMap<String, Object> message = new HashMap<>();
+    try {
+        Optional<Booking> bookingOptional = bookingService.findById(idBooking);
+        if (bookingOptional.isEmpty()) {
+            message.put("status", "404");
+            message.put("message", "La reserva no existe");
+            return ResponseEntity.ok(message);
+        }
+        Booking booking = bookingOptional.get();
+        booking.setStatus(BookingServiceImpl.IN_PROCESS_STATUS);
+        bookingService.saveBooking(booking);
+        message.put("status", "200");
+        message.put("message", "La reserva se ha finalizado correctamente");
+        message.put("booking", booking);
+        return ResponseEntity.ok(message);
+        } catch (Exception e) {
+        message.put("status", "500");
+        message.put("message", "Se produjo un error al finalizar la reserva");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+        }
+    }
+   
     
 }
