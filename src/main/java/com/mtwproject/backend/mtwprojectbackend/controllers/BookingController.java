@@ -159,23 +159,23 @@ public class BookingController {
         }
     }
     
-    @PutMapping("/finalize/{id}")
+    @PutMapping("/finalize")
     @ResponseBody
-    public ResponseEntity<?> finalizeBooking(@PathVariable("id") Long idBooking) {
+    public ResponseEntity<?> finalizeBooking(@RequestBody Booking booking) {
     HashMap<String, Object> message = new HashMap<>();
     try {
-        Optional<Booking> bookingOptional = bookingService.findById(idBooking);
+        Optional<Booking> bookingOptional = bookingService.findById(booking.getIdBooking());
         if (bookingOptional.isEmpty()) {
             message.put("status", "404");
             message.put("message", "La reserva no existe");
             return ResponseEntity.ok(message);
         }
-        Booking booking = bookingOptional.get();
-        booking.setStatus(BookingServiceImpl.FINALIZED_STATUS);
-        bookingService.saveBooking(booking);
+        Booking bookingFound = bookingOptional.get();
+        bookingFound.setStatus(BookingServiceImpl.FINALIZED_STATUS);
+        bookingService.saveBooking(bookingFound);
         message.put("status", "200");
         message.put("message", "La reserva se ha finalizado correctamente");
-        message.put("booking", booking);
+        message.put("booking", bookingFound);
         return ResponseEntity.ok(message);
         } catch (Exception e) {
         message.put("status", "500");
@@ -184,23 +184,23 @@ public class BookingController {
         }
     }
 
-    @PutMapping("/inProcess/{id}")
+    @PutMapping("/inProcess")
     @ResponseBody
-    public ResponseEntity<?> setStatusToEnProcessBooking(@PathVariable("id") Long idBooking) {
+    public ResponseEntity<?> setStatusToEnProcessBooking(@RequestBody Booking booking) {
     HashMap<String, Object> message = new HashMap<>();
     try {
-        Optional<Booking> bookingOptional = bookingService.findById(idBooking);
+        Optional<Booking> bookingOptional = bookingService.findById(booking.getIdBooking());
         if (bookingOptional.isEmpty()) {
             message.put("status", "404");
             message.put("message", "La reserva no existe");
             return ResponseEntity.ok(message);
         }
-        Booking booking = bookingOptional.get();
-        booking.setStatus(BookingServiceImpl.IN_PROCESS_STATUS);
-        bookingService.saveBooking(booking);
+        Booking bookingFound = bookingOptional.get();
+        bookingFound.setStatus(BookingServiceImpl.IN_PROCESS_STATUS);
+        bookingService.saveBooking(bookingFound);
         message.put("status", "200");
         message.put("message", "La reserva se ha finalizado correctamente");
-        message.put("booking", booking);
+        message.put("booking", bookingFound);
         return ResponseEntity.ok(message);
         } catch (Exception e) {
         message.put("status", "500");
