@@ -10,5 +10,6 @@ public abstract List<Booking> findAll();
 public abstract Optional<Booking> findById(Long id);
 public abstract List<Booking> findByCompany(String company);
 public abstract Booking saveBooking(Booking booking);
+public abstract void deleteBooking(Long idBooking);
 
 }

@@ -58,11 +58,53 @@ public class BookingController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
     }
 
-   
-
-
    }
    
+   //Eliminar reserva
+   @DeleteMapping("/{id}")
+   @ResponseBody
+   public ResponseEntity<?> deleteBooking(@PathVariable("id") Long idBooking) {
+       HashMap<String, Object> message = new HashMap<>();
+       try {
+           Optional<Booking> booking = bookingService.findById(idBooking);
+           if (booking.isEmpty()) {
+               message.put("status", "404");
+               message.put("message", "La reserva no existe");
+               return ResponseEntity.ok(message);
+           }
+           bookingService.deleteBooking(idBooking);
+           message.put("status", "200");
+           message.put("message", "La reserva se ha eliminado correctamente");
+           return ResponseEntity.ok(message);
+       } catch (Exception e) {
+           message.put("status", "500");
+           message.put("message", "Se produjo un error al eliminar la reserva");
+           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+       }
+   }
     
+    //Actualizar reserva
+    @PutMapping
+    @ResponseBody
+    public ResponseEntity<?> updateBooking(@RequestBody Booking booking) {
+        HashMap<String, Object> message = new HashMap<>();
+        try {
+            Optional<Booking> bookingFound = bookingService.findById(booking.getIdBooking());
+            if (bookingFound.isEmpty()) {
+                message.put("status", "404");
+                message.put("message", "La reserva no existe");
+                return ResponseEntity.ok(message);
+            }
+            Booking bookingUpdated = bookingService.saveBooking(booking);
+            message.put("status", "200");
+            message.put("message", "La reserva se ha actualizado correctamente");
+            message.put("booking", bookingUpdated);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            message.put("status", "500");
+            message.put("message", "Se produjo un error al actualizar la reserva");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+        }
+    }
     
 }

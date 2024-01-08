@@ -30,12 +30,16 @@ public class BookingServiceImpl implements BookingService {
     }
     
     @Override
-    public List<Booking> findByCompany(String company) {
-        return repository.findByCompany(company);
-    }
-
-    @Override
     public Booking saveBooking(Booking booking) {
         return repository.save(booking);
+    }
+    @Override
+    public List<Booking> findByCompany(String company) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findByCompany'");
+    }
+    @Override
+    public void deleteBooking(Long idBooking) {
+        repository.deleteById(idBooking);
     }
 }
