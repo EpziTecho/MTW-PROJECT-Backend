@@ -1,6 +1,5 @@
 package com.mtwproject.backend.mtwprojectbackend.controllers;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -24,44 +23,44 @@ import com.mtwproject.backend.mtwprojectbackend.services.UbigeoService;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/ubigeo")
 public class UbigeoController {
-    
+
     @Autowired
     private UbigeoService ubigeoService;
 
-
     @GetMapping
-    public List <Ubigeo > list(){
+    public List<Ubigeo> list() {
         return ubigeoService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> show (@PathVariable Long id){
+    public ResponseEntity<?> show(@PathVariable Long id) {
 
-        Optional <Ubigeo> UbigeoOptional= ubigeoService.findById(id);
-        if(UbigeoOptional.isPresent()){
+        Optional<Ubigeo> UbigeoOptional = ubigeoService.findById(id);
+        if (UbigeoOptional.isPresent()) {
             return ResponseEntity.ok(UbigeoOptional.orElseThrow());
-        }   
+        }
         return ResponseEntity.notFound().build();
 
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Ubigeo ubigeo){
+    public ResponseEntity<?> create(@RequestBody Ubigeo ubigeo) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ubigeoService.save(ubigeo));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Ubigeo ubigeo, @PathVariable Long id){
-        Optional <Ubigeo> ubigeoOptional= ubigeoService.update(ubigeo, id);
-        if(ubigeoOptional.isPresent()){
+    public ResponseEntity<?> update(@RequestBody Ubigeo ubigeo, @PathVariable Long id) {
+        Optional<Ubigeo> ubigeoOptional = ubigeoService.update(ubigeo, id);
+        if (ubigeoOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(ubigeoOptional.orElseThrow());
         }
         return ResponseEntity.notFound().build();
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> remove(@PathVariable Long id){
-        Optional <Ubigeo> ubigeoOptional= ubigeoService.findById(id);
-        if(ubigeoOptional.isPresent()){
+    public ResponseEntity<?> remove(@PathVariable Long id) {
+        Optional<Ubigeo> ubigeoOptional = ubigeoService.findById(id);
+        if (ubigeoOptional.isPresent()) {
             ubigeoService.remove(id);
             return ResponseEntity.noContent().build();
         }
@@ -73,16 +72,6 @@ public class UbigeoController {
         return ubigeoService.findByDepartment(department);
     }
 
-    // @GetMapping("/province/{province}")
-    // public List<Ubigeo> findByProvince(@PathVariable String province) {
-    //     return ubigeoService.findByProvince(province);
-    // }
-
-    // @GetMapping("/district/{district}")
-    // public List<Ubigeo> findByDistrict(@PathVariable String district) {
-    //     return ubigeoService.findByDistrict(district);
-    // }
-   
     // Provincia dentro del departamento especificado
     @GetMapping("/department/{department}/province/{province}")
     public List<Ubigeo> findByDepartmentAndProvince(
@@ -100,4 +89,3 @@ public class UbigeoController {
         return ubigeoService.findByDepartmentAndProvinceAndDistrict(department, province, district);
     }
 }
-
