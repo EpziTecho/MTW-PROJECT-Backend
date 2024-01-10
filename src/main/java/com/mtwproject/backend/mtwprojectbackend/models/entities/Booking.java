@@ -22,16 +22,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity 
+@Entity
 @Table(name = "BOOKING")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Booking {
-    @Id 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idBooking;
     @Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Lima")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Lima")
     private Date date;
 
     @Temporal(TemporalType.TIME)
@@ -41,7 +44,7 @@ public class Booking {
 
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idCompany")    
+    @JoinColumn(name = "idCompany")
     private Company company;
 
     private String applicant;
@@ -72,7 +75,6 @@ public class Booking {
 
     private String notes;
 
-
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idCurrency")
@@ -87,17 +89,19 @@ public class Booking {
 
     private String status;
 
+    private Boolean driverPaymentStatus;
+    private Boolean clientPaymentStatus;
+
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idBill")
     private Bill bill;
 
-
-
-    public String getFechaReserva(){
-    return date.toString();
+    public String getFechaReserva() {
+        return date.toString();
     }
-    public String getHoraReserva(){
+
+    public String getHoraReserva() {
         return time.toString();
     }
 

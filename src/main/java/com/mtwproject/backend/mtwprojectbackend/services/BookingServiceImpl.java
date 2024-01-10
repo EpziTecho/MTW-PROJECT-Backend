@@ -60,4 +60,28 @@ public class BookingServiceImpl implements BookingService {
             Long idDriver) {
         return repository.listBookingsByParams(idBooking, applicant, idCompany, idPassenger, idDriver);
     }
+
+    @Override
+    public Booking updateDriverPaymentStatus(Long idBooking, Boolean driverPaymentStatus) {
+        Optional<Booking> bookingOptional = repository.findById(idBooking);
+        if (bookingOptional.isPresent()) {
+            Booking booking = bookingOptional.get();
+            booking.setDriverPaymentStatus(driverPaymentStatus);
+            return repository.save(booking);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Booking updateClientPaymentStatus(Long idBooking, Boolean clientPaymentStatus) {
+        Optional<Booking> bookingOptional = repository.findById(idBooking);
+        if (bookingOptional.isPresent()) {
+            Booking booking = bookingOptional.get();
+            booking.setClientPaymentStatus(clientPaymentStatus);
+            return repository.save(booking);
+        } else {
+            return null;
+        }
+    }
 }
