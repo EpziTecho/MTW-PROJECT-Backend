@@ -99,7 +99,7 @@ CREATE TABLE `bill` (
 
 LOCK TABLES `bill` WRITE;
 /*!40000 ALTER TABLE `bill` DISABLE KEYS */;
-INSERT INTO `bill` VALUES (1,'Series 1','Number 1','2023-07-02',100.50,18.09,118.59,1),(2,'Series 2','Number 2','2023-07-02',200.75,36.14,236.89,2),(3,'Series 3','Number 3','2023-07-02',300.00,54.00,354.00,3),(4,'Series 4','Number 4','2023-07-02',400.25,72.05,472.30,4),(5,'Series 5','Number 5','2023-07-02',500.50,90.10,590.60,5),(6,'Series 6','Number 6','2023-07-02',600.75,108.15,709.90,6),(7,'Series 7','Number 7','2023-07-02',700.00,126.20,829.20,7),(8,'Series 8','Number 8','2023-07-02',800.25,144.25,948.50,8),(9,'Series 9','Number 9','2023-07-02',900.50,162.30,1067.80,9),(10,'Series 10','Number 10','2023-07-02',1000.75,180.35,1181.10,10);
+INSERT INTO `bill` VALUES (1,'Series 1','Number 1','2023-07-02',100.50,18.09,118.59,1),(2,'Series 2','Number 2','2023-07-02',200.75,36.14,236.89,1),(3,'Series 3','Number 3','2023-07-02',300.00,54.00,354.00,2),(4,'Series 4','Number 4','2023-07-02',400.25,72.05,472.30,1),(5,'Series 5','Number 5','2023-07-02',500.50,90.10,590.60,1),(6,'Series 6','Number 6','2023-07-02',600.75,108.15,709.90,1),(7,'Series 7','Number 7','2023-07-02',700.00,126.20,829.20,1),(8,'Series 8','Number 8','2023-07-02',800.25,144.25,948.50,2),(9,'Series 9','Number 9','2023-07-02',900.50,162.30,1067.80,3),(10,'Series 10','Number 10','2023-07-02',1000.75,180.35,1181.10,1);
 /*!40000 ALTER TABLE `bill` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,6 +127,8 @@ CREATE TABLE `booking` (
   `price` decimal(10,2) DEFAULT NULL,
   `idDriver` int DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
+  `driverPaymentStatus` int DEFAULT NULL,
+  `clientPaymentStatus` int DEFAULT NULL,
   `idBill` int DEFAULT NULL,
   PRIMARY KEY (`idBooking`),
   KEY `fk_booking_company` (`idCompany`),
@@ -145,7 +147,7 @@ CREATE TABLE `booking` (
   CONSTRAINT `fk_booking_passenger` FOREIGN KEY (`idPassenger`) REFERENCES `passenger` (`idPassenger`),
   CONSTRAINT `fk_booking_ubigeo_destination` FOREIGN KEY (`idUbigeoDestination`) REFERENCES `ubigeo` (`idUbigeo`),
   CONSTRAINT `fk_booking_ubigeo_pickup` FOREIGN KEY (`idUbigeoPickUp`) REFERENCES `ubigeo` (`idUbigeo`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,7 +156,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,'2023-07-01','12:00:00',1,NULL,1,1,'Origen 1',1,'Destino 1',2,'Nota 1',NULL,50.25,1,'Pendiente',1),(2,'2023-07-02','13:00:00',2,NULL,2,2,'Origen 2',2,'Destino 2',3,'Nota 2',NULL,60.50,2,'Pendiente',2),(3,'2023-07-03','14:00:00',3,NULL,3,3,'Origen 3',3,'Destino 3',4,'Nota 3',NULL,70.75,3,'Pendiente',3),(4,'2023-07-04','15:00:00',4,NULL,4,4,'Origen 4',4,'Destino 4',5,'Nota 4',NULL,80.00,4,'Pendiente',4),(5,'2023-07-05','16:00:00',5,NULL,5,5,'Origen 5',5,'Destino 5',6,'Nota 5',NULL,90.25,5,'Pendiente',5),(6,'2023-07-06','17:00:00',6,NULL,6,6,'Origen 6',6,'Destino 6',7,'Nota 6',NULL,100.50,6,'Pendiente',6),(7,'2023-07-07','18:00:00',7,NULL,7,7,'Origen 7',7,'Destino 7',8,'Nota 7',NULL,110.75,7,'Pendiente',7),(8,'2023-07-08','19:00:00',8,NULL,8,8,'Origen 8',8,'Destino 8',9,'Nota 8',NULL,121.00,8,'Pendiente',8),(9,'2023-07-09','20:00:00',9,NULL,9,9,'Origen 9',9,'Destino 9',10,'Nota 9',NULL,131.25,9,'Pendiente',9),(10,'2023-07-10','21:00:00',10,NULL,10,10,'Origen 10',10,'Destino 10',1,'Nota 10',NULL,141.50,10,'Pendiente',10),(12,'2023-12-21','12:00:00',1,NULL,1,1,'Origen 1',1,'Destino 1',2,'Nota ',NULL,50.25,10,'Finalizado',10),(13,'2023-12-29','12:00:00',1,NULL,1,1,'Origen 13',1,'Destino 13',2,'Nota 13',1,50.25,1,'Pendiente',1),(14,'2023-12-29','12:00:00',1,NULL,1,1,'Origen 14',1,'Destino 14',2,'Nota 14',1,50.25,1,'Pendiente',10),(15,'2023-12-29','12:00:00',1,NULL,1,1,'Origen 15',1,'Destino 15',2,'Nota 15',1,50.25,1,'Finalizado',10),(16,'2023-12-29','12:00:00',1,NULL,1,1,'Origen 16',1,'Destino 16',2,'Nota 16',1,50.25,10,'En proceso',NULL),(17,'2023-12-29','12:00:00',1,NULL,1,1,'Origen 17',1,'Destino 17',2,'Nota 17',1,50.25,10,'En proceso',NULL),(18,'2023-12-29','12:00:00',1,NULL,1,1,'Origen 18',1,'Destino 18',2,'Nota 18',1,50.25,9,'En proceso',NULL);
+INSERT INTO `booking` VALUES (1,'2023-07-01','12:00:00',1,NULL,1,1,'Origen 1',1,'Destino 1',2,'Nota 1',1,50.25,1,'Pendiente',1,1,1),(2,'2023-07-02','13:00:00',2,NULL,2,2,'Origen 2',2,'Destino 2',3,'Nota 2',1,60.50,2,'Pendiente',NULL,1,2),(3,'2023-07-03','14:00:00',3,NULL,3,3,'Origen 3',3,'Destino 3',4,'Nota 3',2,70.75,3,'Pendiente',NULL,NULL,3),(4,'2023-07-04','15:00:00',4,NULL,4,4,'Origen 4',4,'Destino 4',5,'Nota 4',1,80.00,4,'Pendiente',NULL,NULL,4),(5,'2023-07-05','16:00:00',5,NULL,5,5,'Origen 5',5,'Destino 5',6,'Nota 5',2,90.25,5,'Pendiente',NULL,NULL,5),(6,'2023-07-06','17:00:00',6,NULL,6,6,'Origen 6',6,'Destino 6',7,'Nota 6',1,100.50,6,'Pendiente',NULL,NULL,6),(7,'2023-07-07','18:00:00',7,NULL,7,7,'Origen 7',7,'Destino 7',8,'Nota 7',1,110.75,7,'Pendiente',NULL,NULL,7),(8,'2023-07-08','19:00:00',8,NULL,8,8,'Origen 8',8,'Destino 8',9,'Nota 8',1,121.00,8,'Pendiente',NULL,NULL,8),(9,'2023-07-09','20:00:00',9,NULL,9,9,'Origen 9',9,'Destino 9',10,'Nota 9',1,131.25,9,'Pendiente',NULL,NULL,9),(10,'2023-07-10','21:00:00',10,NULL,10,10,'Origen 10',10,'Destino 10',1,'Nota 10',1,141.50,10,'Pendiente',NULL,NULL,10),(12,'2023-12-21','12:00:00',1,NULL,1,1,'Origen 1',1,'Destino 1',2,'Nota ',1,50.25,10,'Finalizado',NULL,1,10);
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,7 +175,7 @@ CREATE TABLE `company` (
   `tradeName` varchar(100) DEFAULT NULL,
   `phone` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idCompany`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,7 +184,7 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
-INSERT INTO `company` VALUES (1,'Jorge','12345678901','Direccion 1','Tradename 1','123456789'),(2,'Josue','23456789012','Direccion 2','Tradename 2','234567890'),(3,'Joseline','34567890123','Direccion 3','Tradename 3','345678901'),(4,'Maria','45678901234','Direccion 4','Tradename 4','456789012'),(5,'Martin','56789012345','Direccion 5','Tradename 5','567890123'),(6,'Hugo','67890123456','Direccion 6','Tradename 6','678901234'),(7,'Humberto','78901234567','Direccion 7','Tradename 7','789012345'),(8,'Gabriel','89012345678','Direccion 8','Tradename 8','890123456'),(9,'Gaston','90123456789','Direccion 9','Tradename 9','901234567'),(10,'Sergio','01234567890','Direccion 10','Tradename 10','012345678'),(11,'Serena','123456789011','Direccion11','Tradename11','123456789'),(12,'Peter','20232012312312','Direccion 12',NULL,NULL),(13,'Pedro','20202020202022',NULL,NULL,NULL),(14,'Liz','20208989898','Direccion Liz',NULL,NULL),(15,'Liz','20208989898','Direccion Liz',NULL,NULL),(16,'Liz','20208989898','Direccion Liz',NULL,NULL),(17,'Javier','2123123123','Direccion Liz',NULL,NULL),(18,'Rocio','22131231233','Direccion Rocio',NULL,NULL),(19,'Marcos','20003456782','Direccion Rocio',NULL,NULL),(20,'Brandom','12345678902','Direccion Brandom',NULL,NULL),(21,'Ramon','12345678903','Direccion Ramon',NULL,NULL),(23,'ALIANZA FRANCESA DE LIMA','20110401796','AV. AREQUIPA NRO. 4595 URB. SURQUILLO LIMA LIMA MIRAFLORES','',''),(24,'EMBAJADA DE FRANCIA','20307069432','AV. AREQUIPA NRO. 3415 LIMA LIMA SAN ISIDRO','',''),(29,'GREENANDES LOGISTICS S.A.C.','20389592715','CAL. AMADOR MERINO REYNA NRO. 295 INT. 502 URB. SAN ISIDRO LIMA LIMA SAN ISIDRO','','');
+INSERT INTO `company` VALUES (1,'Jorge','12345678901','Direccion 1','Tradename 1','123456789'),(2,'Josue','23456789012','Direccion 2','Tradename 2','234567890'),(3,'Joseline','34567890123','Direccion 3','Tradename 3','345678901'),(4,'Maria','45678901234','Direccion 4','Tradename 4','456789012'),(5,'Martin','56789012345','Direccion 5','Tradename 5','567890123'),(6,'Hugo','67890123456','Direccion 6','Tradename 6','678901234'),(7,'Humberto','78901234567','Direccion 7','Tradename 7','789012345'),(8,'Gabriel','89012345678','Direccion 8','Tradename 8','890123456'),(9,'Gaston','90123456789','Direccion 9','Tradename 9','901234567'),(10,'Sergio','01234567890','Direccion 10','Tradename 10','012345678'),(11,'Serena','123456789011','Direccion11','Tradename11','123456789'),(12,'Peter','20232012312312','Direccion 12',NULL,NULL),(13,'Pedro','20202020202022',NULL,NULL,NULL),(14,'Liz','20208989898','Direccion Liz',NULL,NULL),(15,'Liz','20208989898','Direccion Liz',NULL,NULL),(16,'Liz','20208989898','Direccion Liz',NULL,NULL),(17,'Javier','2123123123','Direccion Liz',NULL,NULL),(18,'Rocio','22131231233','Direccion Rocio',NULL,NULL),(19,'Marcos','20003456782','Direccion Rocio',NULL,NULL),(20,'Brandom','12345678902','Direccion Brandom',NULL,NULL),(21,'Ramon','12345678903','Direccion Ramon',NULL,NULL),(23,'ALIANZA FRANCESA DE LIMA','20110401796','AV. AREQUIPA NRO. 4595 URB. SURQUILLO LIMA LIMA MIRAFLORES','',''),(24,'EMBAJADA DE FRANCIA','20307069432','AV. AREQUIPA NRO. 3415 LIMA LIMA SAN ISIDRO','',''),(29,'GREENANDES LOGISTICS S.A.C.','20389592715','CAL. AMADOR MERINO REYNA NRO. 295 INT. 502 URB. SAN ISIDRO LIMA LIMA SAN ISIDRO','',''),(30,'MINISTERIO DE RELACIONES EXTERIORES','20131380101','JR. LAMPA NRO. 545 LIMA LIMA LIMA','',''),(31,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,6 +198,7 @@ DROP TABLE IF EXISTS `currency`;
 CREATE TABLE `currency` (
   `idCurrency` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
+  `symbol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idCurrency`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -206,7 +209,7 @@ CREATE TABLE `currency` (
 
 LOCK TABLES `currency` WRITE;
 /*!40000 ALTER TABLE `currency` DISABLE KEYS */;
-INSERT INTO `currency` VALUES (1,'Currency 1'),(2,'Currency 2'),(3,'Currency 3'),(4,'Currency 4'),(5,'Currency 5'),(6,'Currency 6'),(7,'Currency 7'),(8,'Currency 8'),(9,'Currency 9'),(10,'Currency 10');
+INSERT INTO `currency` VALUES (1,'Soles','S/'),(2,'Dolares Americanos','$'),(3,'Euros','€');
 /*!40000 ALTER TABLE `currency` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,12 +226,12 @@ CREATE TABLE `driver` (
   `lastNames` varchar(100) DEFAULT NULL,
   `idNumber` varchar(100) DEFAULT NULL,
   `phone` varchar(100) DEFAULT NULL,
-  `status` varchar(100) DEFAULT NULL,
-  `model` varchar(100) DEFAULT NULL,
   `brand` varchar(100) DEFAULT NULL,
+  `model` varchar(100) DEFAULT NULL,
   `carPlate` varchar(100) DEFAULT NULL,
   `year` int DEFAULT NULL,
   `color` varchar(100) DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idDriver`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -239,7 +242,7 @@ CREATE TABLE `driver` (
 
 LOCK TABLES `driver` WRITE;
 /*!40000 ALTER TABLE `driver` DISABLE KEYS */;
-INSERT INTO `driver` VALUES (1,'Nombre Conductor 1','Apellido Conductor 1','12345678','123456789',NULL,'Modelo 1','Marca 1','Plate 1',2020,'Color 1'),(2,'Nombre Conductor 2','Apellido Conductor 2','23456789','234567890',NULL,'Modelo 2','Marca 2','Plate 2',2021,'Color 2'),(3,'Nombre Conductor 3','Apellido Conductor 3','34567890','345678901',NULL,'Modelo 3','Marca 3','Plate 3',2022,'Color 3'),(4,'Nombre Conductor 4','Apellido Conductor 4','45678901','456789012',NULL,'Modelo 4','Marca 4','Plate 4',2023,'Color 4'),(5,'Nombre Conductor 5','Apellido Conductor 5','56789012','567890123',NULL,'Modelo 5','Marca 5','Plate 5',2024,'Color 5'),(6,'Nombre Conductor 6','Apellido Conductor 6','67890123','678901234',NULL,'Modelo 6','Marca 6','Plate 6',2025,'Color 6'),(7,'Nombre Conductor 7','Apellido Conductor 7','78901234','789012345',NULL,'Modelo 7','Marca 7','Plate 7',2026,'Color 7'),(8,'Nombre Conductor 8','Apellido Conductor 8','89012345','890123456',NULL,'Modelo 8','Marca 8','Plate 8',2027,'Color 8'),(9,'Nombre Conductor 9','Apellido Conductor 9','90123456','901234567',NULL,'Modelo 9','Marca 9','Plate 9',2028,'Color 9'),(10,'Nombre Conductor 10','Apellido Conductor 10','01234567','012345678',NULL,'Modelo 10','Marca 10','Plate 10',2029,'Color 10'),(11,'Nombre Conductor 11','Apellido Conductor 11','12345678','123456789','Inactivo','Modelo 11','Marca 11','Plate 11',2020,'Color 11');
+INSERT INTO `driver` VALUES (1,'Nombre Conductor 1','Apellido Conductor 1','12345678','123456789','Marca 1','Modelo 1','Plate 1',2020,'Color 1',NULL),(2,'NOMBRE CONDUCTOR 2','APELLIDO CONDUCTOR 2','23456789','234567890','MARCA 2','MODELO 2','PLATE 2',2021,'COLOR 2',NULL),(3,'Nombre Conductor 3','Apellido Conductor 3','34567890','345678901','Marca 3','Modelo 3','Plate 3',2022,'Color 3',NULL),(4,'Nombre Conductor 4','Apellido Conductor 4','45678901','456789012','Marca 4','Modelo 4','Plate 4',2023,'Color 4',NULL),(5,'Nombre Conductor 5','Apellido Conductor 5','56789012','567890123','Marca 5','Modelo 5','Plate 5',2024,'Color 5',NULL),(6,'Nombre Conductor 6','Apellido Conductor 6','67890123','678901234','Marca 6','Modelo 6','Plate 6',2025,'Color 6',NULL),(7,'Nombre Conductor 7','Apellido Conductor 7','78901234','789012345','Marca 7','Modelo 7','Plate 7',2026,'Color 7',NULL),(8,'Nombre Conductor 8','Apellido Conductor 8','89012345','890123456','Marca 8','Modelo 8','Plate 8',2027,'Color 8',NULL),(9,'Nombre Conductor 9','Apellido Conductor 9','90123456','901234567','Marca 9','Modelo 9','Plate 9',2028,'Color 9',NULL),(10,'Nombre Conductor 10','Apellido Conductor 10','01234567','012345678','Marca 10','Modelo 10','Plate 10',2029,'Color 10',NULL),(11,'HUGO DONIE','SALAS LUPERDI','75486421','993523742','HYUNDAI','ELANTRA','C5L619',2007,'NEGRO',NULL);
 /*!40000 ALTER TABLE `driver` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,13 +312,13 @@ CREATE TABLE `passenger` (
   `names` varchar(100) DEFAULT NULL,
   `lastNames` varchar(100) DEFAULT NULL,
   `idUbigeo` int DEFAULT NULL,
-  `status` varchar(100) DEFAULT NULL,
   `adress` varchar(255) DEFAULT NULL,
   `phone` varchar(100) DEFAULT NULL,
+  `status` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idPassenger`),
   KEY `fk_passenger_ubigeo_idx` (`idUbigeo`),
   CONSTRAINT `fk_passenger_ubigeo` FOREIGN KEY (`idUbigeo`) REFERENCES `ubigeo` (`idUbigeo`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -324,7 +327,7 @@ CREATE TABLE `passenger` (
 
 LOCK TABLES `passenger` WRITE;
 /*!40000 ALTER TABLE `passenger` DISABLE KEYS */;
-INSERT INTO `passenger` VALUES (1,'Nombre 1','Apellido 1',1,NULL,'Direccion 1','123456789'),(2,'Nombre 2','Apellido 2',2,NULL,'Direccion 2','234567890'),(3,'Nombre 3','Apellido 3',3,NULL,'Direccion 3','345678901'),(4,'Nombre 4','Apellido 4',4,NULL,'Direccion 4','456789012'),(5,'Nombre 5','Apellido 5',5,NULL,'Direccion 5','567890123'),(6,'Nombre 6','Apellido 6',6,NULL,'Direccion 6','678901234'),(7,'Nombre 7','Apellido 7',7,NULL,'Direccion 7','789012345'),(8,'Nombre 8','Apellido 8',8,NULL,'Direccion 8','890123456'),(9,'Nombre 9','Apellido 9',9,NULL,'Direccion 9','901234567'),(10,'Nombre 10','Apellido 10',10,NULL,'Direccion 10','012345678'),(11,'Nombre 11','Apellido 11',10,'Inactivo','Direccion 11','012345678');
+INSERT INTO `passenger` VALUES (1,'Nombre 1','Apellido 1',1,'Direccion 1','123456789',NULL),(2,'Nombre 2','Apellido 2',2,'Direccion 2','234567890',NULL),(3,'Nombre 3','Apellido 3',3,'Direccion 3','345678901',NULL),(4,'Nombre 4','Apellido 4',4,'Direccion 4','456789012',NULL),(5,'Nombre 5','Apellido 5',5,'Direccion 5','567890123',NULL),(6,'Nombre 6','Apellido 6',6,'Direccion 6','678901234',NULL),(7,'Nombre 7','Apellido 7',7,'Direccion 7','789012345',NULL),(8,'Nombre 8','Apellido 8',8,'Direccion 8','890123456',NULL),(9,'Nombre 9','Apellido 9',9,'Direccion 9','901234567',NULL),(10,'Nombre 10','Apellido 10',10,'Direccion 10','012345678',NULL);
 /*!40000 ALTER TABLE `passenger` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -479,4 +482,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-30 16:17:12
+-- Dump completed on 2024-01-10 17:26:46
