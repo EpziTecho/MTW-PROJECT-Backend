@@ -75,6 +75,7 @@ public class PassengerController {
         }
     }
 
+    // Insertar pasajero
     @PostMapping
     @ResponseBody
     public ResponseEntity<?> savePassenger(@RequestBody Passenger passenger) {
