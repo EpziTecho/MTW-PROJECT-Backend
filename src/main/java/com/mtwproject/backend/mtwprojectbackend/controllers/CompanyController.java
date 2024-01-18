@@ -61,12 +61,12 @@ public class CompanyController {
  }
 
 //Buscar empresa por id
-@GetMapping("/findbyid/")
+@GetMapping("/findbyid/{id}")
 @ResponseBody
-public ResponseEntity<?> findCompanyById(@RequestBody Company company){
+public ResponseEntity<?> findCompanyById(@PathVariable("id") Long id){
     HashMap <String, Object> message = new HashMap<>();
     try{
-        Optional <Company> companyOptional = companyService.findById(company.getIdCompany());
+        Optional <Company> companyOptional = companyService.findById(id);
         if(companyOptional.isPresent()){
             message.put("status", "200");
             message.put("message", "Empresa encontrada");
