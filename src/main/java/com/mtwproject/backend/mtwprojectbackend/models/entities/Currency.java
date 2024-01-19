@@ -10,9 +10,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity 
+@Entity
 @Table(name = "CURRENCY")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Currency {
 
     @Id
@@ -20,5 +23,5 @@ public class Currency {
     private Long idCurrency;
 
     private String name;
-    
+    private String symbol;
 }
