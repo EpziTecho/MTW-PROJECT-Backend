@@ -28,23 +28,23 @@ public class UbigeoController {
     private List<Ubigeo> ubigeoList;
 
     @GetMapping({ "", "/" })
-    public ResponseEntity<List<Ubigeo>> ubigeoList() {
+    public ResponseEntity<?> ubigeoList() {
         HashMap<String, Object> message = new HashMap<>();
         try {
             ubigeoList = ubigeoService.listUbigeosLimaCallao();
             if (ubigeoList.isEmpty()) {
                 message.put("status", "404");
                 message.put("message", "No se encontraron distritos");
-                return ResponseEntity.ok(ubigeoList);
+                return ResponseEntity.ok(message);
             }
             message.put("status", "200");
             message.put("message", "Se encontraron distritos");
-            message.put("ubigeo", ubigeoList);
-            return ResponseEntity.ok(ubigeoList);
+            message.put("data", ubigeoList);
+            return ResponseEntity.ok(message);
         } catch (Exception e) {
             message.put("status", "500");
             message.put("message", "Se produjo un error al buscar los distritos");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ubigeoList);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
     }
 
@@ -64,7 +64,7 @@ public class UbigeoController {
             }
             message.put("status", "200");
             message.put("message", "Se encontraron distritos en el departamento especificado");
-            message.put("ubigeo", ubigeo);
+            message.put("data", ubigeo);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
             message.put("status", "500");
@@ -90,7 +90,7 @@ public class UbigeoController {
             }
             message.put("status", "200");
             message.put("message", "Se encontraron distritos en el departamento y provincia especificados");
-            message.put("ubigeo", ubigeo);
+            message.put("data", ubigeo);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
             message.put("status", "500");
@@ -118,7 +118,7 @@ public class UbigeoController {
             }
             message.put("status", "200");
             message.put("message", "Se encontraron distritos en el departamento, provincia y distrito especificados");
-            message.put("ubigeo", ubigeo);
+            message.put("data", ubigeo);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
             message.put("status", "500");
