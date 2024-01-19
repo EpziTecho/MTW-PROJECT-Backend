@@ -31,10 +31,16 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking saveBooking(Booking booking) {
-        // Si la reserva es nueva (idBooking es nulo), establecer el estado a
-        // RESERVE_STATUS
         if (booking.getIdBooking() == null) {
-            booking.setStatus(RESERVE_STATUS);
+            // Si la reserva es nueva y ya tiene un conductor asignado, establecer el estado
+            // a PENDING_DRIVER_ASSIGNED_STATUS
+            if (booking.getDriver() != null && booking.getDriver().getIdDriver() != null) {
+                booking.setStatus(PENDING_DRIVER_ASSIGNED_STATUS);
+            } else {
+                // Si la reserva es nueva y no tiene conductor asignado, establecer el estado a
+                // RESERVE_STATUS
+                booking.setStatus(RESERVE_STATUS);
+            }
         } else {
             // Si la reserva ya existe, comprobar si idDriver no es nulo y el estado actual
             // es RESERVE_STATUS
