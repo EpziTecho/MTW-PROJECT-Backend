@@ -85,7 +85,7 @@ public class BookingController {
         try {
             Booking bookingCreated = bookingService.saveBooking(booking);
             message.put("status", "200");
-            message.put("message", "La reserva se ha creado correctamente");
+            message.put("message", "La reserva N° " + bookingCreated.getIdBooking() + " se ha creado correctamente");
             message.put("data", bookingCreated);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
