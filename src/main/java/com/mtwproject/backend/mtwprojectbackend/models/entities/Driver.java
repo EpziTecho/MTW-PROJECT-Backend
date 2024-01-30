@@ -21,6 +21,7 @@ public class Driver {
     private String lastNames;
     private String idNumber;
     private String phone;
+    private String status;
     private String model;
     private String brand;
     private String carPlate;

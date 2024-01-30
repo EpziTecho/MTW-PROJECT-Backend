@@ -11,8 +11,7 @@ import com.mtwproject.backend.mtwprojectbackend.models.entities.Ubigeo;
 import com.mtwproject.backend.mtwprojectbackend.repositories.UbigeoRepository;
 
 @Service
-public class UbigeoServiceImpl implements UbigeoService{
-
+public class UbigeoServiceImpl implements UbigeoService {
 
     @Autowired
     private UbigeoRepository repository;
@@ -20,51 +19,51 @@ public class UbigeoServiceImpl implements UbigeoService{
     @Override
     @Transactional(readOnly = true)
     public List<Ubigeo> findAll() {
-      
+
         return (List<Ubigeo>) repository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<Ubigeo> findById(Long id) {
-        
+
         return repository.findById(id);
     }
 
     @Override
     @Transactional
     public void remove(Long id) {
-       
+
         repository.deleteById(id);
-        
+
     }
 
     @Override
     @Transactional
     public Ubigeo save(Ubigeo distrit) {
-        
+
         return repository.save(distrit);
     }
 
     @Override
     @Transactional
     public Optional<Ubigeo> update(Ubigeo ubigeo, Long id) {
-        
+
         Optional<Ubigeo> o = this.findById(id);
-        Ubigeo ubigeoOptional=null;
-        if(o.isPresent()){
-            Ubigeo ubigeoDb= o.orElseThrow();
+        Ubigeo ubigeoOptional = null;
+        if (o.isPresent()) {
+            Ubigeo ubigeoDb = o.orElseThrow();
             ubigeoDb.setIdUbigeo(ubigeo.getIdUbigeo());
             ubigeoDb.setDepartment(ubigeo.getDepartment());
             ubigeoDb.setProvince(ubigeo.getProvince());
             ubigeoDb.setDistrict(ubigeo.getDistrict());
             ubigeoDb.setName(ubigeo.getName());
             ubigeoDb.setUbigeo(ubigeo.getUbigeo());
-            ubigeoOptional=this.save(ubigeoDb);
+            ubigeoOptional = this.save(ubigeoDb);
         }
         return Optional.ofNullable(ubigeoOptional);
     }
-        
+
     @Override
     @Transactional(readOnly = true)
     public List<Ubigeo> findByDepartment(String department) {
@@ -82,6 +81,7 @@ public class UbigeoServiceImpl implements UbigeoService{
     public List<Ubigeo> findByDistrict(String district) {
         return repository.findByDistrict(district);
     }
+
     @Override
     @Transactional(readOnly = true)
     public List<Ubigeo> findByDepartmentAndProvince(String department, String province) {
@@ -92,5 +92,10 @@ public class UbigeoServiceImpl implements UbigeoService{
     @Transactional(readOnly = true)
     public List<Ubigeo> findByDepartmentAndProvinceAndDistrict(String department, String province, String district) {
         return repository.findByDepartmentAndProvinceAndDistrict(department, province, district);
+    }
+
+    @Override
+    public List<Ubigeo> listUbigeosLimaCallao() {
+        return repository.listUbigeosLimaCallao();
     }
 }

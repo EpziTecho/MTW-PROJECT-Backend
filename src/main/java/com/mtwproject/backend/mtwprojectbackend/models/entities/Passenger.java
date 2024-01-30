@@ -19,7 +19,8 @@ public class Passenger {
     private Long idPassenger;
     private String names;
     private String lastNames;
-    private Long idDistrit;
+    private Long idUbigeo;
+    private String status;
     private String adress;
     private String phone;
   

@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.mtwproject.backend.mtwprojectbackend.models.entities.Booking;
 import com.mtwproject.backend.mtwprojectbackend.repositories.BookingRepository;
 
@@ -16,86 +14,86 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     private BookingRepository repository;
     // Constante para el manejo de estados
-    private static final String PENDING_DRIVER_ASSIGNED_STATUS = "Pendiente (conductor asignado)";
-    private static final String RESERVE_STATUS = "Reserva";
-    private static final String IN_PROCESS_STATUS = "En proceso";
-    private static final String FINALIZED_STATUS = "Finalizado";
+    private static final String RESERVE_STATUS = "En Reserva";
+    private static final String PENDING_DRIVER_ASSIGNED_STATUS = "Pendiente";
+    public static final String IN_PROCESS_STATUS = "En Proceso";
+    public static final String FINALIZED_STATUS = "Finalizado";
 
     @Override
-    @Transactional(readOnly = true)
-    public List <Booking > findAll() {
-        return (List <Booking>) repository.findAll();
+    public List<Booking> findAll() {
+        return (List<Booking>) repository.findAll();
     }
 
     @Override
     public Optional<Booking> findById(Long id) {
-      
-       return repository.findById(id);
+        return repository.findById(id);
     }
 
     @Override
-    @Transactional
-    public Booking save(Booking booking) {
-        // Cambiar el estado a "Reserva" al crear un nuevo registro
-        booking.setStatus(RESERVE_STATUS);
-       return repository.save(booking);
-    }
-
-    @Override
-    @Transactional
-    public Optional<Booking> update(Booking booking, Long id) {
-        Optional <Booking> o = repository.findById(id);
-         Booking bookingOptional=null;
-            if(o.isPresent()) {
-                Booking bookingDb=o.orElseThrow();
-                bookingDb.setDate(booking.getDate());
-                bookingDb.setTime(booking.getTime());
-                bookingDb.setIdCompany(booking.getIdCompany());
-                bookingDb.setApplicant(booking.getApplicant());
-                bookingDb.setIdArea(booking.getIdArea());
-                bookingDb.setIdPassenger(booking.getIdPassenger());
-                bookingDb.setPickUp(booking.getPickUp());
-                bookingDb.setIdUbigeoPickUp(booking.getIdUbigeoPickUp());
-                bookingDb.setDestination(booking.getDestination());
-                bookingDb.setIdUbigeoDestination(booking.getIdUbigeoDestination());
-                bookingDb.setNotes(booking.getNotes());
-                bookingDb.setIdCurrency(booking.getIdCurrency());
-                bookingDb.setPrice(booking.getPrice());
-                bookingDb.setIdDriver(booking.getIdDriver());
-                bookingDb.setIdBill(booking.getIdBill());
-            // Cambiar el estado a "Pendiente (conductor asignado)" si se actualiza el idBill
-            if (booking.getIdDriver() != null && !booking.getIdDriver().equals(bookingDb.getIdBill())) {
-                bookingDb.setStatus(PENDING_DRIVER_ASSIGNED_STATUS);
+    public Booking saveBooking(Booking booking) {
+        if (booking.getIdBooking() == null) {
+            // Si la reserva es nueva y ya tiene un conductor asignado, establecer el estado
+            // a PENDING_DRIVER_ASSIGNED_STATUS
+            if (booking.getDriver() != null && booking.getDriver().getIdDriver() != null) {
+                booking.setStatus(PENDING_DRIVER_ASSIGNED_STATUS);
+            } else {
+                // Si la reserva es nueva y no tiene conductor asignado, establecer el estado a
+                // RESERVE_STATUS
+                booking.setStatus(RESERVE_STATUS);
             }
-
-            bookingOptional = repository.save(bookingDb);
+        } else {
+            // Si la reserva ya existe, comprobar si idDriver no es nulo y el estado actual
+            // es RESERVE_STATUS
+            if (booking.getDriver() != null && booking.getDriver().getIdDriver() != null
+                    && RESERVE_STATUS.equals(booking.getStatus())) {
+                // Si idDriver no es nulo y el estado actual es RESERVE_STATUS, establecer el
+                // estado a PENDING_DRIVER_ASSIGNED_STATUS
+                booking.setStatus(PENDING_DRIVER_ASSIGNED_STATUS);
+            }
+            // Si idDriver es nulo o el estado actual no es RESERVE_STATUS, no cambiar el
+            // estado
         }
-        return Optional.ofNullable(bookingOptional);
+        return repository.save(booking);
     }
 
     @Override
-    @Transactional
-    public String updateStatusToEnProceso(Long id) {
-            return repository.findById(id).map(booking -> {
-            booking.setStatus(IN_PROCESS_STATUS);
-            repository.save(booking);
-            return "La reserva se actualizó correctamente";
-        }).orElse("La reserva no existe");
+    public void deleteBooking(Long idBooking) {
+        repository.deleteById(idBooking);
     }
 
     @Override
-    @Transactional
-    public String updateStatusToFinalizado(Long id) {
-        return repository.findById(id).map(booking -> {
-            booking.setStatus(FINALIZED_STATUS);
-            repository.save(booking);
-            return "La reserva se actualizó correctamente";
-        }).orElse("La reserva no existe");
+    public List<Booking> listBookingsByParams(Long idBooking, String applicant, Long idCompany, Long idPassenger,
+            Long idDriver) {
+        return repository.listBookingsByParams(idBooking, applicant, idCompany, idPassenger, idDriver);
     }
 
     @Override
-    @Transactional
-    public void remove(Long id) {
-        repository.deleteById(id);
+    public Booking updateDriverPaymentStatus(Long idBooking, Boolean driverPaymentStatus) {
+        Optional<Booking> bookingOptional = repository.findById(idBooking);
+        if (bookingOptional.isPresent()) {
+            Booking booking = bookingOptional.get();
+            booking.setDriverPaymentStatus(driverPaymentStatus);
+            return repository.save(booking);
+        } else {
+            return null;
+        }
     }
+
+    @Override
+    public Booking updateClientPaymentStatus(Long idBooking, Boolean clientPaymentStatus) {
+        Optional<Booking> bookingOptional = repository.findById(idBooking);
+        if (bookingOptional.isPresent()) {
+            Booking booking = bookingOptional.get();
+            booking.setClientPaymentStatus(clientPaymentStatus);
+            return repository.save(booking);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Booking> findByBillId(Long idBill) {
+        return repository.findByBillId(idBill);
+    }
+
 }
