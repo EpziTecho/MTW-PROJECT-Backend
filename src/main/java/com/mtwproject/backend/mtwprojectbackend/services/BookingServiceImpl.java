@@ -90,4 +90,10 @@ public class BookingServiceImpl implements BookingService {
             return null;
         }
     }
+
+    @Override
+    public List<Booking> findByBillId(Long idBill) {
+        return repository.findByBillId(idBill);
+    }
+
 }

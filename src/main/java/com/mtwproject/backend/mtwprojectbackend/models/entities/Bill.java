@@ -10,11 +10,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity 
+@Entity
 @Table(name = "BILL")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Bill {
-    @Id 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idBill;
     private String series;
@@ -23,5 +26,6 @@ public class Bill {
     private String subTotal;
     private String igv;
     private String total;
-    private Long idCurrency;       
+    private Long idCurrency;
+    private String status;
 }
