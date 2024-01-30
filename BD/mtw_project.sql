@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `mtw_project` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `mtw_project`;
--- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: localhost    Database: mtw_project
+-- Host: 127.0.0.1    Database: mtw_project
 -- ------------------------------------------------------
--- Server version	8.0.34
+-- Server version	8.0.36
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -87,10 +87,11 @@ CREATE TABLE `bill` (
   `igv` decimal(10,2) DEFAULT NULL,
   `total` decimal(10,2) DEFAULT NULL,
   `idCurrency` int DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idBill`),
   KEY `fk_bill_currency` (`idCurrency`),
   CONSTRAINT `fk_bill_currency` FOREIGN KEY (`idCurrency`) REFERENCES `currency` (`idCurrency`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +100,7 @@ CREATE TABLE `bill` (
 
 LOCK TABLES `bill` WRITE;
 /*!40000 ALTER TABLE `bill` DISABLE KEYS */;
-INSERT INTO `bill` VALUES (1,'Series 1','Number 1','2023-07-02',100.50,18.09,118.59,1),(2,'Series 2','Number 2','2023-07-02',200.75,36.14,236.89,1),(3,'Series 3','Number 3','2023-07-02',300.00,54.00,354.00,2),(4,'Series 4','Number 4','2023-07-02',400.25,72.05,472.30,1),(5,'Series 5','Number 5','2023-07-02',500.50,90.10,590.60,1),(6,'Series 6','Number 6','2023-07-02',600.75,108.15,709.90,1),(7,'Series 7','Number 7','2023-07-02',700.00,126.20,829.20,1),(8,'Series 8','Number 8','2023-07-02',800.25,144.25,948.50,2),(9,'Series 9','Number 9','2023-07-02',900.50,162.30,1067.80,3),(10,'Series 10','Number 10','2023-07-02',1000.75,180.35,1181.10,1);
+INSERT INTO `bill` VALUES (1,'Series 1','Number 1','2023-07-02',100.50,18.09,118.59,1,NULL),(2,'Series 2','Number 2','2023-07-02',200.75,36.14,236.89,1,NULL),(3,'Series 3','Number 3','2023-07-02',300.00,54.00,354.00,2,NULL),(4,'Series 4','Number 4','2023-07-02',400.25,72.05,472.30,1,NULL),(5,'Series 5','Number 5','2023-07-02',500.50,90.10,590.60,1,NULL),(6,'Series 6','Number 6','2023-07-02',600.75,108.15,709.90,1,NULL),(7,'Series 7','Number 7','2023-07-02',700.00,126.20,829.20,1,NULL),(8,'Series 8','Number 8','2023-07-02',800.25,144.25,948.50,2,NULL),(9,'Series 9','Number 9','2023-07-02',900.50,162.30,1067.80,3,NULL),(10,'Series 10','Number 10','2023-07-02',1000.75,180.35,1181.10,1,NULL),(11,'Series 22','Number 22','2023-07-02',100.50,18.09,118.59,1,NULL),(12,'Series 22','Number 22','2023-07-02',100.50,18.09,118.59,1,NULL),(13,'Series 22','Number 22','2023-07-02',100.50,18.09,118.59,1,NULL),(14,'Series 22','Number 22','2023-07-02',100.50,18.09,118.59,1,NULL),(15,'Series 22','Number 22','2023-07-02',100.50,18.09,118.59,1,NULL),(16,'Series 22','Number 22','2023-07-02',100.50,18.09,118.59,1,NULL),(17,'Series 22','Number 22','2023-07-02',100.50,18.09,118.59,1,NULL),(18,'Series 22','Number 22','2023-07-02',100.50,18.09,118.59,1,'Activo'),(19,'Series 23','Number 23','2023-07-02',100.50,18.09,118.59,1,'Activo');
 /*!40000 ALTER TABLE `bill` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +157,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,'2023-07-01','12:00:00',1,NULL,1,1,'Origen 1',1,'Destino 1',2,'Nota 1',1,50.25,1,'Pendiente',1,1,1),(2,'2023-07-02','13:00:00',2,NULL,2,2,'Origen 2',2,'Destino 2',3,'Nota 2',1,60.50,2,'Pendiente',NULL,1,2),(3,'2023-07-03','14:00:00',3,NULL,3,3,'Origen 3',3,'Destino 3',4,'Nota 3',2,70.75,3,'Pendiente',NULL,NULL,3),(4,'2023-07-04','15:00:00',4,NULL,4,4,'Origen 4',4,'Destino 4',5,'Nota 4',1,80.00,4,'Pendiente',NULL,NULL,4),(5,'2023-07-05','16:00:00',5,NULL,5,5,'Origen 5',5,'Destino 5',6,'Nota 5',2,90.25,5,'Pendiente',NULL,NULL,5),(6,'2023-07-06','17:00:00',6,NULL,6,6,'Origen 6',6,'Destino 6',7,'Nota 6',1,100.50,6,'Pendiente',NULL,NULL,6),(7,'2023-07-07','18:00:00',7,NULL,7,7,'Origen 7',7,'Destino 7',8,'Nota 7',1,110.75,7,'Pendiente',NULL,NULL,7),(8,'2023-07-08','19:00:00',8,NULL,8,8,'Origen 8',8,'Destino 8',9,'Nota 8',1,121.00,8,'Pendiente',NULL,NULL,8),(9,'2023-07-09','20:00:00',9,NULL,9,9,'Origen 9',9,'Destino 9',10,'Nota 9',1,131.25,9,'Pendiente',NULL,NULL,9),(10,'2023-07-10','21:00:00',10,NULL,10,10,'Origen 10',10,'Destino 10',1,'Nota 10',1,141.50,10,'Pendiente',NULL,NULL,10),(12,'2023-12-21','12:00:00',1,NULL,1,1,'Origen 1',1,'Destino 1',2,'Nota ',1,50.25,10,'Finalizado',NULL,1,10);
+INSERT INTO `booking` VALUES (1,'2023-07-01','12:00:00',1,NULL,1,1,'Origen 1',1,'Destino 1',2,'Nota 1',1,50.25,1,'Pendiente',1,1,18),(2,'2023-07-02','13:00:00',2,NULL,2,2,'Origen 2',2,'Destino 2',3,'Nota 2',1,60.50,2,'Pendiente',NULL,1,18),(3,'2023-07-03','14:00:00',3,NULL,3,3,'Origen 3',3,'Destino 3',4,'Nota 3',2,70.75,3,'Pendiente',NULL,NULL,19),(4,'2023-07-04','15:00:00',4,NULL,4,4,'Origen 4',4,'Destino 4',5,'Nota 4',1,80.00,4,'Pendiente',NULL,NULL,19),(5,'2023-07-05','16:00:00',5,NULL,5,5,'Origen 5',5,'Destino 5',6,'Nota 5',2,90.25,5,'Pendiente',NULL,NULL,19),(6,'2023-07-06','17:00:00',6,NULL,6,6,'Origen 6',6,'Destino 6',7,'Nota 6',1,100.50,6,'Pendiente',NULL,NULL,6),(7,'2023-07-07','18:00:00',7,NULL,7,7,'Origen 7',7,'Destino 7',8,'Nota 7',1,110.75,7,'Pendiente',NULL,NULL,7),(8,'2023-07-08','19:00:00',8,NULL,8,8,'Origen 8',8,'Destino 8',9,'Nota 8',1,121.00,8,'Pendiente',NULL,NULL,8),(9,'2023-07-09','20:00:00',9,NULL,9,9,'Origen 9',9,'Destino 9',10,'Nota 9',1,131.25,9,'Pendiente',NULL,NULL,9),(10,'2023-07-10','21:00:00',10,NULL,10,10,'Origen 10',10,'Destino 10',1,'Nota 10',1,141.50,10,'Pendiente',NULL,NULL,16),(12,'2023-12-21','12:00:00',1,NULL,1,1,'Origen 1',1,'Destino 1',2,'Nota ',1,50.25,10,'Finalizado',NULL,1,16);
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -468,10 +469,6 @@ LOCK TABLES `usertypenavmenu` WRITE;
 /*!40000 ALTER TABLE `usertypenavmenu` DISABLE KEYS */;
 /*!40000 ALTER TABLE `usertypenavmenu` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'mtw_project'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -482,4 +479,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-10 17:26:46
+-- Dump completed on 2024-01-29 22:10:59

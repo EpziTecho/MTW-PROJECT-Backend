@@ -10,6 +10,8 @@ public interface BookingService {
 
     public abstract Optional<Booking> findById(Long id);
 
+    public abstract List<Booking> findByBillId(Long idBill);
+
     public abstract Booking saveBooking(Booking booking);
 
     public abstract void deleteBooking(Long idBooking);
