@@ -99,6 +99,7 @@ public class Booking {
 
     public String getFechaReserva() {
         return date.toString();
+
     }
 
     public String getHoraReserva() {
