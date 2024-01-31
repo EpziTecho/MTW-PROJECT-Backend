@@ -3,6 +3,7 @@ package com.mtwproject.backend.mtwprojectbackend.controllers;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -269,4 +270,26 @@ public class BillController {
         }
     }
 
+    // Listar facturas por id de company
+    @GetMapping("/company/{idCompany}")
+    public ResponseEntity<?> findBillsByCompanyId(@PathVariable("idCompany") Long idCompany) {
+        HashMap<String, Object> message = new HashMap<>();
+        try {
+            List<Bill> bills = service.findBillsByCompanyId(idCompany);
+            if (bills.isEmpty()) {
+                message.put("status", 404);
+                message.put("message", "No se encontraron facturas para la empresa con ID: " + idCompany);
+                return ResponseEntity.ok(message);
+            }
+
+            message.put("status", 200);
+            message.put("message", "Facturas encontradas para la empresa con ID: " + idCompany);
+            message.put("data", bills);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            message.put("status", 500);
+            message.put("message", "Error al buscar facturas: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+        }
+    }
 }

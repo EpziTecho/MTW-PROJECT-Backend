@@ -48,4 +48,9 @@ public class BillServiceImpl implements BillService {
         return repository.save(bill);
     }
 
+    @Override
+    public List<Bill> findBillsByCompanyId(Long idCompany) {
+        return repository.findBillsByCompanyId(idCompany);
+    }
+
 }
