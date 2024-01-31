@@ -22,22 +22,21 @@ public class PassengerServiceImpl implements PassengerService {
     @Override
     @Transactional(readOnly = true)
     public List<Passenger> findAll() {
-        return (List<Passenger>) repository.findAll();
+        return (List<Passenger>) repository.findAllByOrderByNamesDesc();
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<Passenger> findById(Long id) {
-       return repository.findById(id);
+        return repository.findById(id);
     }
 
     @Override
     @Transactional
     public void remove(Long id) {
         repository.deleteById(id);
-        
+
     }
-    
 
     @Override
     @Transactional
@@ -53,16 +52,16 @@ public class PassengerServiceImpl implements PassengerService {
     @Transactional
     public Passenger save(Passenger passenger) {
         passenger.setStatus(ACTIVE_STATUS);
-       return repository.save(passenger);
+        return repository.save(passenger);
     }
 
     @Override
     @Transactional
     public Optional<Passenger> update(Passenger passenger, Long id) {
-        Optional <Passenger> o = this.findById(id);
-        Passenger passengerOptional=null;
-        if( o.isPresent()){
-            Passenger passengerDb= o.orElseThrow();
+        Optional<Passenger> o = this.findById(id);
+        Passenger passengerOptional = null;
+        if (o.isPresent()) {
+            Passenger passengerDb = o.orElseThrow();
             passengerDb.setNames(passenger.getNames());
             passengerDb.setLastNames(passenger.getLastNames());
             passengerDb.setIdUbigeo(passenger.getIdUbigeo());
@@ -71,7 +70,7 @@ public class PassengerServiceImpl implements PassengerService {
             passengerDb.setAdress(passenger.getAdress());
             passengerDb.setPhone(passenger.getPhone());
 
-            passengerOptional= this.save(passengerDb);            
+            passengerOptional = this.save(passengerDb);
         }
 
         return Optional.ofNullable(passengerOptional);

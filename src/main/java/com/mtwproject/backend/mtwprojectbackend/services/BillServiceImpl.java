@@ -22,7 +22,7 @@ public class BillServiceImpl implements BillService {
     @Override
     @Transactional(readOnly = true)
     public List<Bill> findAll() {
-        return (List<Bill>) repository.findAll();
+        return (List<Bill>) repository.findAllByOrderByIdBillDesc();
     }
 
     @Override

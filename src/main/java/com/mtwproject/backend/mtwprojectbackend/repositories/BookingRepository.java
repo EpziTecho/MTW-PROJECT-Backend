@@ -29,4 +29,9 @@ public interface BookingRepository extends CrudRepository<Booking, Long> {
         List<Booking> listBookingsByParams(Long idBooking, String applicant, Long idCompany, Long idPassenger,
                         Long idDriver);
 
+        /*
+         * Lo que hace este método es devolver un iterable de reservas ordenadas por el
+         * id de la reserva de forma descendente.
+         */
+        Iterable<Booking> findAllByOrderByIdBookingDesc();
 }

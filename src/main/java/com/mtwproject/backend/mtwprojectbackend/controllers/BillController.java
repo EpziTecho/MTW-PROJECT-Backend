@@ -26,7 +26,7 @@ import com.mtwproject.backend.mtwprojectbackend.services.BookingService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/bills")
+@RequestMapping("/bill")
 
 public class BillController {
 

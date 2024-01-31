@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.mtwproject.backend.mtwprojectbackend.models.entities.Booking;
 
 public interface BookingService {
+
     public abstract List<Booking> findAll();
 
     public abstract Optional<Booking> findById(Long id);
