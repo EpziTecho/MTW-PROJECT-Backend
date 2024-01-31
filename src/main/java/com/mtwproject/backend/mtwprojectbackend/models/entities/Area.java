@@ -13,7 +13,10 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "AREA")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Area {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,5 +24,4 @@ public class Area {
     @Column(unique = true)
     private String name;
 
-    
 }

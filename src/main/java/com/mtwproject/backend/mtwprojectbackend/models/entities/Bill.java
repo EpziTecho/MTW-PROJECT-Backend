@@ -1,9 +1,16 @@
 package com.mtwproject.backend.mtwprojectbackend.models.entities;
 
+import org.apache.xmlbeans.impl.store.Cur;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +33,10 @@ public class Bill {
     private String subTotal;
     private String igv;
     private String total;
-    private Long idCurrency;
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idCurrency")
+    private Currency currency;
+
     private String status;
 }

@@ -13,7 +13,6 @@ import com.mtwproject.backend.mtwprojectbackend.repositories.AccountingRepositor
 @Service
 public class AccountingServiceImpl implements AccountingService {
 
-
     @Autowired
     private AccountingRepository repository;
 
@@ -38,27 +37,25 @@ public class AccountingServiceImpl implements AccountingService {
     @Override
     @Transactional
     public Accounting save(Accounting accounting) {
-       return repository.save(accounting);
+        return repository.save(accounting);
     }
 
     @Override
     @Transactional
     public Optional<Accounting> update(Accounting accounting, Long id) {
-       Optional <Accounting> o = this.findById(id);
-         Accounting accountingOptional=null;
-            if(o.isPresent()){
-                Accounting accountingDb= o.orElseThrow();
-                accountingDb.setIdBooking(accounting.getIdBooking());
-                accountingDb.setDate(accounting.getDate());
-                accountingDb.setTime(accounting.getTime());
-                accountingDb.setStatus(accounting.getStatus());
-                accountingDb.setNotes(accounting.getNotes());
-                accountingOptional= this.save(accountingDb);
-            
-            }
-            return Optional.ofNullable(accountingOptional);
+        Optional<Accounting> o = this.findById(id);
+        Accounting accountingOptional = null;
+        if (o.isPresent()) {
+            Accounting accountingDb = o.orElseThrow();
+            accountingDb.setIdBooking(accounting.getIdBooking());
+            accountingDb.setDate(accounting.getDate());
+            accountingDb.setTime(accounting.getTime());
+            accountingDb.setStatus(accounting.getStatus());
+            accountingDb.setNotes(accounting.getNotes());
+            accountingOptional = this.save(accountingDb);
+
+        }
+        return Optional.ofNullable(accountingOptional);
     }
 
-
-    
 }
