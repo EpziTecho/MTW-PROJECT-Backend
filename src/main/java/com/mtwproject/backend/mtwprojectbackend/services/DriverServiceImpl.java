@@ -3,7 +3,6 @@ package com.mtwproject.backend.mtwprojectbackend.services;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,20 +15,20 @@ public class DriverServiceImpl implements DriverService {
 
     private static final String ACTIVE_STATUS = "Activo";
     private static final String INACTIVE_STATUS = "Inactivo";
-    
+
     @Autowired
     private DriverRepository repository;
 
     @Override
     @Transactional(readOnly = true)
     public List<Driver> findAll() {
-        return (List<Driver>) repository.findAll();
+        return (List<Driver>) repository.findAllByOrderByNamesDesc();
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<Driver> findById(Long id) {
-       
+
         return repository.findById(id);
     }
 
@@ -37,7 +36,7 @@ public class DriverServiceImpl implements DriverService {
     @Transactional
     public void remove(Long id) {
         repository.deleteById(id);
-        
+
     }
 
     @Override
@@ -49,6 +48,7 @@ public class DriverServiceImpl implements DriverService {
             return "Conductor desactivado";
         }).orElseThrow(() -> new RuntimeException("No se pudo desactivar el conductor"));
     }
+
     @Override
     @Transactional
     public Driver save(Driver driver) {
@@ -60,9 +60,9 @@ public class DriverServiceImpl implements DriverService {
     @Transactional
     public Optional<Driver> update(Driver driver, Long id) {
         Optional<Driver> o = this.findById(id);
-        Driver driverOptional=null;
-        if(o.isPresent()){
-            Driver driverDb= o.orElseThrow();
+        Driver driverOptional = null;
+        if (o.isPresent()) {
+            Driver driverDb = o.orElseThrow();
             driverDb.setNames(driver.getNames());
             driverDb.setLastNames(driver.getLastNames());
             driverDb.setIdNumber(driver.getIdNumber());
@@ -73,9 +73,9 @@ public class DriverServiceImpl implements DriverService {
             driverDb.setCarPlate(driver.getCarPlate());
             driverDb.setYear(driver.getYear());
             driverDb.setColor(driver.getColor());
-            driverOptional=this.save(driverDb);
+            driverOptional = this.save(driverDb);
         }
         return Optional.ofNullable(driverOptional);
     }
-    
+
 }
