@@ -43,16 +43,16 @@ public class BillController {
         try {
             List<Bill> bills = service.findAll();
             if (bills.isEmpty()) {
-                message.put("status", "404");
+                message.put("status", 404);
                 message.put("message", "No se encontraron facturas");
                 return ResponseEntity.ok(message);
             }
-            message.put("status", "200");
+            message.put("status", 200);
             message.put("message", "Facturas encontradas");
             message.put("data", bills);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Error al buscar facturas");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
@@ -66,17 +66,17 @@ public class BillController {
         HashMap<String, Object> message = new HashMap<>();
         try {
             Optional<Bill> bill = service.findById(idBills);
-            if (bill == null) {
-                message.put("status", "404");
+            if (!bill.isPresent()) {
+                message.put("status", 404);
                 message.put("message", "No se encontró la factura");
                 return ResponseEntity.ok(message);
             }
-            message.put("status", "200");
+            message.put("status", 200);
             message.put("message", "Factura encontrada");
             message.put("data", bill);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Error al buscar factura");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
@@ -118,13 +118,13 @@ public class BillController {
                     updatedBookingIds.add(existingBooking.getIdBooking()); // Agregar ID a la lista
                 } else {
                     // Si no se encuentra la reserva, devolver error
-                    message.put("status", "404");
+                    message.put("status", 404);
                     message.put("message", "No se encontró la reserva con ID: " + bookingUpdate.getIdBooking());
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
                 }
             }
             // Devolver mensaje de éxito con la factura y las reservas actualizadas
-            message.put("status", "200");
+            message.put("status", 200);
             // message.put("message", "Las reservas" + bookingUpdates + "fueron
             // actualizadas");
             /*
@@ -147,7 +147,7 @@ public class BillController {
             return ResponseEntity.ok(message);
         } catch (Exception e) {
             // Devolver mensaje de error si ocurre una excepción
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Error al guardar factura: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
@@ -196,14 +196,14 @@ public class BillController {
                         updatedBookingIds.add(existingBooking.getIdBooking()); // Agregar ID a la lista
                     } else {
                         // Si no se encuentra la reserva, devolver error
-                        message.put("status", "404");
+                        message.put("status", 404);
                         message.put("message", "No se encontró la reserva con ID: " + bookingUpdate.getIdBooking());
                         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
                     }
                 }
             }
             // Devolver mensaje de éxito con la factura y las reservas actualizadas
-            message.put("status", "200");
+            message.put("status", 200);
             String bookingIdsStr = updatedBookingIds.stream()
                     .map(Object::toString)
                     .collect(Collectors.joining(", "));
@@ -218,7 +218,7 @@ public class BillController {
             return ResponseEntity.ok(message);
         } catch (Exception e) {
             // Devolver mensaje de error si ocurre una excepción
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Error al actualizar factura: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
@@ -251,19 +251,19 @@ public class BillController {
                     bookingService.saveBooking(booking);
                 }
                 // Devolver mensaje de éxito con la factura y las reservas actualizadas
-                message.put("status", "200");
+                message.put("status", 200);
                 message.put("message", "Factura eliminada");
                 message.put("data", billSaved);
                 return ResponseEntity.ok(message);
             } else {
                 // Si no se encuentra la factura, devolver error
-                message.put("status", "404");
+                message.put("status", 404);
                 message.put("message", "No se encontró la factura con ID: " + idBill);
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
             }
         } catch (Exception e) {
             // Devolver mensaje de error si ocurre una excepción
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Error al eliminar factura: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }

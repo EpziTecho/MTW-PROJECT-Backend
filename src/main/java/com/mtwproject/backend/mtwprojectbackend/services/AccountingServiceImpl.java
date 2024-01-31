@@ -16,10 +16,13 @@ public class AccountingServiceImpl implements AccountingService {
     @Autowired
     private AccountingRepository repository;
 
+    private static final String STATUS_PAYED = "pagado";
+    private static final String STATUS_PENDING = "pendiente";
+
     @Override
     @Transactional(readOnly = true)
     public List<Accounting> findAll() {
-        return (List<Accounting>) repository.findAll();
+        return (List<Accounting>) repository.findAllByOrderByIdAccountingDesc();
     }
 
     @Override
@@ -43,19 +46,32 @@ public class AccountingServiceImpl implements AccountingService {
     @Override
     @Transactional
     public Optional<Accounting> update(Accounting accounting, Long id) {
-        Optional<Accounting> o = this.findById(id);
+        Optional<Accounting> o = repository.findById(id);
         Accounting accountingOptional = null;
         if (o.isPresent()) {
             Accounting accountingDb = o.orElseThrow();
-            accountingDb.setIdBooking(accounting.getIdBooking());
+            accountingDb.setBooking(accounting.getBooking());
             accountingDb.setDate(accounting.getDate());
             accountingDb.setTime(accounting.getTime());
-            accountingDb.setStatus(accounting.getStatus());
+            accountingDb.setStatus((STATUS_PENDING));
             accountingDb.setNotes(accounting.getNotes());
-            accountingOptional = this.save(accountingDb);
+            accountingOptional = repository.save(accountingDb);
 
         }
         return Optional.ofNullable(accountingOptional);
+    }
+
+    @Override
+    public Optional<Accounting> updateStatus(Accounting accounting, Long id) {
+        Optional<Accounting> o = repository.findById(id);
+        Accounting accountingOptional = null;
+        if (o.isPresent()) {
+            Accounting accountingDb = o.orElseThrow();
+            accountingDb.setStatus(STATUS_PAYED);
+            accountingOptional = repository.save(accountingDb);
+        }
+        return Optional.ofNullable(accountingOptional);
+
     }
 
 }
