@@ -25,9 +25,10 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
                         "AND (:applicant = '' OR b.applicant = :applicant) " +
                         "AND (:idCompany IS NULL OR b.company.id = :idCompany) " +
                         "AND (:idPassenger IS NULL OR b.passenger.id = :idPassenger) " +
-                        "AND (:idDriver IS NULL OR b.driver.id = :idDriver)")
+                        "AND (:idDriver IS NULL OR b.driver.id = :idDriver)" +
+                        "AND (:idCurrency IS NULL OR b.currency.id = :idCurrency)")
         List<Booking> listBookingsByParams(Long idBooking, String applicant, Long idCompany, Long idPassenger,
-                        Long idDriver);
+                        Long idDriver, Long idCurrency);
 
         /*
          * Lo que hace este método es devolver un iterable de reservas ordenadas por el

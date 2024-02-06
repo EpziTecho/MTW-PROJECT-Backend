@@ -153,11 +153,12 @@ public class BookingController {
             @RequestParam(name = "applicant", required = false, defaultValue = "") String applicant,
             @RequestParam(name = "idCompany", required = false, defaultValue = "") Long idCompany,
             @RequestParam(name = "idPassenger", required = false, defaultValue = "") Long idPassenger,
-            @RequestParam(name = "idDriver", required = false, defaultValue = "") Long idDriver) {
+            @RequestParam(name = "idDriver", required = false, defaultValue = "") Long idDriver,
+            @RequestParam(name = "idCurrency", required = false, defaultValue = "") Long idCurrency) {
         HashMap<String, Object> message = new HashMap<>();
         try {
             List<Booking> bookingList = bookingService.listBookingsByParams(idBooking, applicant, idCompany,
-                    idPassenger, idDriver);
+                    idPassenger, idDriver, idCurrency);
             if (bookingList.isEmpty()) {
                 message.put("status", "404");
                 message.put("message", "No se encontraron reservas");
