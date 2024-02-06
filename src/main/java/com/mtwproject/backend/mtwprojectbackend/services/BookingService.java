@@ -24,4 +24,6 @@ public interface BookingService {
 
     Booking updateClientPaymentStatus(Long idBooking, Boolean clientPaymentStatus);
 
+    List<Booking> findBookingsWithoutBill();
+
 }

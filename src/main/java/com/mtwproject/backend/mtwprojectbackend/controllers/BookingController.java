@@ -278,4 +278,28 @@ public class BookingController {
         }
     }
 
+    // listar reservas que no tienen facturas asociadas
+
+    @GetMapping("noBills")
+    @ResponseBody
+    public ResponseEntity<?> listBookingsWithoutBills() {
+        HashMap<String, Object> message = new HashMap<>();
+        try {
+            List<Booking> bookingList = bookingService.findBookingsWithoutBill();
+            if (bookingList.isEmpty()) {
+                message.put("status", "404");
+                message.put("message", "No se encontraron reservas sin facturas");
+                return ResponseEntity.ok(message);
+            }
+            message.put("status", "200");
+            message.put("message", "Se encontraron reservas sin facturas");
+            message.put("data", bookingList);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            message.put("status", "500");
+            message.put("message", "Se produjo un error al buscar las reservas sin facturas");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+        }
+    }
+
 }

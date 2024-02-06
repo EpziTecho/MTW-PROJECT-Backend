@@ -96,4 +96,9 @@ public class BookingServiceImpl implements BookingService {
         return repository.findByBillId(idBill);
     }
 
+    @Override
+    public List<Booking> findBookingsWithoutBill() {
+        return repository.findBookingsWithoutBill();
+    }
+
 }

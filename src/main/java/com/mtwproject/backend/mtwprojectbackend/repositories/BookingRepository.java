@@ -1,5 +1,6 @@
 package com.mtwproject.backend.mtwprojectbackend.repositories;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -10,7 +11,7 @@ import com.mtwproject.backend.mtwprojectbackend.models.entities.Company;
 
 import java.util.List;
 
-public interface BookingRepository extends CrudRepository<Booking, Long> {
+public interface BookingRepository extends JpaRepository<Booking, Long> {
 
         List<Booking> findAll();
 
@@ -34,4 +35,7 @@ public interface BookingRepository extends CrudRepository<Booking, Long> {
          * id de la reserva de forma descendente.
          */
         Iterable<Booking> findAllByOrderByIdBookingDesc();
+
+        @Query("SELECT b FROM Booking b WHERE b.bill IS NULL")
+        List<Booking> findBookingsWithoutBill();
 }
