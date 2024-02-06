@@ -63,8 +63,8 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<Booking> listBookingsByParams(Long idBooking, String applicant, Long idCompany, Long idPassenger,
-            Long idDriver) {
-        return repository.listBookingsByParams(idBooking, applicant, idCompany, idPassenger, idDriver);
+            Long idDriver, Long idCurrency) {
+        return repository.listBookingsByParams(idBooking, applicant, idCompany, idPassenger, idDriver, idCurrency);
     }
 
     @Override
@@ -94,6 +94,11 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<Booking> findByBillId(Long idBill) {
         return repository.findByBillId(idBill);
+    }
+
+    @Override
+    public List<Booking> findBookingsWithoutBill() {
+        return repository.findBookingsWithoutBill();
     }
 
 }

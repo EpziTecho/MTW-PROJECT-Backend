@@ -153,11 +153,12 @@ public class BookingController {
             @RequestParam(name = "applicant", required = false, defaultValue = "") String applicant,
             @RequestParam(name = "idCompany", required = false, defaultValue = "") Long idCompany,
             @RequestParam(name = "idPassenger", required = false, defaultValue = "") Long idPassenger,
-            @RequestParam(name = "idDriver", required = false, defaultValue = "") Long idDriver) {
+            @RequestParam(name = "idDriver", required = false, defaultValue = "") Long idDriver,
+            @RequestParam(name = "idCurrency", required = false, defaultValue = "") Long idCurrency) {
         HashMap<String, Object> message = new HashMap<>();
         try {
             List<Booking> bookingList = bookingService.listBookingsByParams(idBooking, applicant, idCompany,
-                    idPassenger, idDriver);
+                    idPassenger, idDriver, idCurrency);
             if (bookingList.isEmpty()) {
                 message.put("status", "404");
                 message.put("message", "No se encontraron reservas");
@@ -274,6 +275,30 @@ public class BookingController {
         } catch (Exception e) {
             message.put("status", "500");
             message.put("message", "Se produjo un error al actualizar el estado de pago del cliente");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+        }
+    }
+
+    // listar reservas que no tienen facturas asociadas
+
+    @GetMapping("noBills")
+    @ResponseBody
+    public ResponseEntity<?> listBookingsWithoutBills() {
+        HashMap<String, Object> message = new HashMap<>();
+        try {
+            List<Booking> bookingList = bookingService.findBookingsWithoutBill();
+            if (bookingList.isEmpty()) {
+                message.put("status", "404");
+                message.put("message", "No se encontraron reservas sin facturas");
+                return ResponseEntity.ok(message);
+            }
+            message.put("status", "200");
+            message.put("message", "Se encontraron reservas sin facturas");
+            message.put("data", bookingList);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            message.put("status", "500");
+            message.put("message", "Se produjo un error al buscar las reservas sin facturas");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
     }

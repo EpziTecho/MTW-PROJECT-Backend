@@ -1,8 +1,10 @@
 package com.mtwproject.backend.mtwprojectbackend.models.entities;
 
+import org.apache.commons.lang3.builder.ToStringExclude;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Date;
 
@@ -21,6 +23,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "BOOKING")
@@ -28,6 +31,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -95,6 +100,8 @@ public class Booking {
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idBill")
+    @JsonIgnore // evita el bucle de informacion (StackoverFlow)
+    // @ToStringExclude Para la consola
     private Bill bill;
 
     public String getFechaReserva() {
