@@ -13,4 +13,6 @@ public interface BillService {
 
     public abstract Bill save(Bill bill);
 
+    public abstract List<Bill> findBillsByCompanyId(Long idCompany);
+
 }

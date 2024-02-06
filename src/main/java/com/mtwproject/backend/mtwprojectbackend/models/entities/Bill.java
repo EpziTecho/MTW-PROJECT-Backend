@@ -1,7 +1,5 @@
 package com.mtwproject.backend.mtwprojectbackend.models.entities;
 
-import org.apache.xmlbeans.impl.store.Cur;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -39,4 +37,5 @@ public class Bill {
     private Currency currency;
 
     private String status;
+
 }
