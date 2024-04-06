@@ -63,8 +63,9 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<Booking> listBookingsByParams(Long idBooking, String applicant, Long idCompany, Long idPassenger,
-            Long idDriver, Long idCurrency) {
-        return repository.listBookingsByParams(idBooking, applicant, idCompany, idPassenger, idDriver, idCurrency);
+            Long idDriver, Long idCurrency, Long idBill) {
+        return repository.listBookingsByParams(idBooking, applicant, idCompany, idPassenger, idDriver, idCurrency,
+                idBill);
     }
 
     @Override

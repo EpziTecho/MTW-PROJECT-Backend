@@ -145,7 +145,7 @@ public class BookingController {
     }
 
     // Listar reservas por parametros : idBooking, applicant, idCompany,
-    // idPassenger, idDriver
+    // idPassenger, idDriver, idBill
     @GetMapping("filterBookingsByParams")
     @ResponseBody
     public ResponseEntity<?> filterBookingsByParams(
@@ -154,11 +154,12 @@ public class BookingController {
             @RequestParam(name = "idCompany", required = false, defaultValue = "") Long idCompany,
             @RequestParam(name = "idPassenger", required = false, defaultValue = "") Long idPassenger,
             @RequestParam(name = "idDriver", required = false, defaultValue = "") Long idDriver,
-            @RequestParam(name = "idCurrency", required = false, defaultValue = "") Long idCurrency) {
+            @RequestParam(name = "idCurrency", required = false, defaultValue = "") Long idCurrency,
+            @RequestParam(name = "idBill", required = false, defaultValue = "") Long idBill) {
         HashMap<String, Object> message = new HashMap<>();
         try {
             List<Booking> bookingList = bookingService.listBookingsByParams(idBooking, applicant, idCompany,
-                    idPassenger, idDriver, idCurrency);
+                    idPassenger, idDriver, idCurrency, idBill);
             if (bookingList.isEmpty()) {
                 message.put("status", "404");
                 message.put("message", "No se encontraron reservas");

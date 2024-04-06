@@ -18,7 +18,7 @@ public interface BookingService {
     public abstract void deleteBooking(Long idBooking);
 
     public abstract List<Booking> listBookingsByParams(Long idBooking, String applicant, Long idCompany,
-            Long idPassenger, Long idDriver, Long idCurrency);
+            Long idPassenger, Long idDriver, Long idCurrency, Long idBill);
 
     Booking updateDriverPaymentStatus(Long idBooking, Boolean driverPaymentStatus);
 
