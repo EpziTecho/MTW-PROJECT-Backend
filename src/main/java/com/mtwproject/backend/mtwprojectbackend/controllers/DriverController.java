@@ -21,7 +21,7 @@ import com.mtwproject.backend.mtwprojectbackend.models.entities.Driver;
 import com.mtwproject.backend.mtwprojectbackend.services.DriverService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+// @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/driver")
 public class DriverController {
 
