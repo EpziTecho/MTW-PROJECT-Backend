@@ -39,16 +39,16 @@ public class BookingController {
         try {
             List<Booking> bookingList = bookingService.findAll();
             if (bookingList.isEmpty()) {
-                message.put("status", "404");
+                message.put("status", 404);
                 message.put("message", "No se encontraron reservas");
                 return ResponseEntity.ok(message);
             }
-            message.put("status", "200");
+            message.put("status", 200);
             message.put("message", "Se encontraron reservas");
             message.put("data", bookingList);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Se produjo un error al buscar las reservas");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
@@ -62,16 +62,16 @@ public class BookingController {
         try {
             Optional<Booking> booking = bookingService.findById(idBooking);
             if (booking.isEmpty()) {
-                message.put("status", "404");
+                message.put("status", 404);
                 message.put("message", "La reserva no existe");
                 return ResponseEntity.ok(message);
             }
-            message.put("status", "200");
+            message.put("status", 200);
             message.put("message", "La reserva se ha encontrado correctamente");
             message.put("data", booking);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Se produjo un error al buscar la reserva");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
@@ -84,12 +84,12 @@ public class BookingController {
         HashMap<String, Object> message = new HashMap<>();
         try {
             Booking bookingCreated = bookingService.saveBooking(booking);
-            message.put("status", "200");
+            message.put("status", 200);
             message.put("message", "La reserva N° " + bookingCreated.getIdBooking() + " se ha creado correctamente");
             message.put("data", bookingCreated);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Error al crear la reserva");
             message.put("error", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
@@ -105,16 +105,16 @@ public class BookingController {
         try {
             Optional<Booking> booking = bookingService.findById(idBooking);
             if (booking.isEmpty()) {
-                message.put("status", "404");
+                message.put("status", 404);
                 message.put("message", "La reserva no existe");
                 return ResponseEntity.ok(message);
             }
             bookingService.deleteBooking(idBooking);
-            message.put("status", "200");
+            message.put("status", 200);
             message.put("message", "La reserva se ha eliminado correctamente");
             return ResponseEntity.ok(message);
         } catch (Exception e) {
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Se produjo un error al eliminar la reserva");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
@@ -128,17 +128,17 @@ public class BookingController {
         try {
             Optional<Booking> bookingFound = bookingService.findById(booking.getIdBooking());
             if (bookingFound.isEmpty()) {
-                message.put("status", "404");
+                message.put("status", 404);
                 message.put("message", "La reserva no existe");
                 return ResponseEntity.ok(message);
             }
             Booking bookingUpdated = bookingService.saveBooking(booking);
-            message.put("status", "200");
+            message.put("status", 200);
             message.put("message", "La reserva se ha actualizado correctamente");
             message.put("data", bookingUpdated);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Se produjo un error al actualizar la reserva");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
@@ -160,16 +160,16 @@ public class BookingController {
             List<Booking> bookingList = bookingService.listBookingsByParams(idBooking, applicant, idCompany,
                     idPassenger, idDriver, idCurrency);
             if (bookingList.isEmpty()) {
-                message.put("status", "404");
+                message.put("status", 404);
                 message.put("message", "No se encontraron reservas");
                 return ResponseEntity.ok(message);
             }
-            message.put("status", "200");
+            message.put("status", 200);
             message.put("message", "Se encontraron reservas");
             message.put("data", bookingList);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Se produjo un error al buscar las reservas");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
@@ -183,19 +183,19 @@ public class BookingController {
         try {
             Optional<Booking> bookingOptional = bookingService.findById(booking.getIdBooking());
             if (bookingOptional.isEmpty()) {
-                message.put("status", "404");
+                message.put("status", 404);
                 message.put("message", "La reserva no existe");
                 return ResponseEntity.ok(message);
             }
             Booking bookingFound = bookingOptional.get();
             bookingFound.setStatus(BookingServiceImpl.FINALIZED_STATUS);
             bookingService.saveBooking(bookingFound);
-            message.put("status", "200");
+            message.put("status", 200);
             message.put("message", "La reserva se ha finalizado correctamente");
             message.put("data", bookingFound);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Se produjo un error al finalizar la reserva");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
@@ -209,19 +209,19 @@ public class BookingController {
         try {
             Optional<Booking> bookingOptional = bookingService.findById(booking.getIdBooking());
             if (bookingOptional.isEmpty()) {
-                message.put("status", "404");
+                message.put("status", 404);
                 message.put("message", "La reserva no existe");
                 return ResponseEntity.ok(message);
             }
             Booking bookingFound = bookingOptional.get();
             bookingFound.setStatus(BookingServiceImpl.IN_PROCESS_STATUS);
             bookingService.saveBooking(bookingFound);
-            message.put("status", "200");
+            message.put("status", 200);
             message.put("message", "La reserva se ha finalizado correctamente");
             message.put("data", bookingFound);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Se produjo un error al finalizar la reserva");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
@@ -235,19 +235,19 @@ public class BookingController {
         try {
             Optional<Booking> bookingOptional = bookingService.findById(booking.getIdBooking());
             if (bookingOptional.isEmpty()) {
-                message.put("status", "404");
+                message.put("status", 404);
                 message.put("message", "La reserva no existe");
                 return ResponseEntity.ok(message);
             }
             Booking bookingFound = bookingOptional.get();
             bookingFound.setDriverPaymentStatus(booking.getDriverPaymentStatus());
             bookingService.saveBooking(bookingFound);
-            message.put("status", "200");
+            message.put("status", 200);
             message.put("message", "El estado de pago del conductor se ha actualizado correctamente");
             message.put("data", bookingFound);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Se produjo un error al actualizar el estado de pago del conductor");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
@@ -261,19 +261,19 @@ public class BookingController {
         try {
             Optional<Booking> bookingOptional = bookingService.findById(booking.getIdBooking());
             if (bookingOptional.isEmpty()) {
-                message.put("status", "404");
+                message.put("status", 404);
                 message.put("message", "La reserva no existe");
                 return ResponseEntity.ok(message);
             }
             Booking bookingFound = bookingOptional.get();
             bookingFound.setClientPaymentStatus(booking.getClientPaymentStatus());
             bookingService.saveBooking(bookingFound);
-            message.put("status", "200");
+            message.put("status", 200);
             message.put("message", "El estado de pago del cliente se ha actualizado correctamente");
             message.put("data", bookingFound);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Se produjo un error al actualizar el estado de pago del cliente");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
@@ -288,16 +288,16 @@ public class BookingController {
         try {
             List<Booking> bookingList = bookingService.findBookingsWithoutBill();
             if (bookingList.isEmpty()) {
-                message.put("status", "404");
+                message.put("status", 404);
                 message.put("message", "No se encontraron reservas sin facturas");
                 return ResponseEntity.ok(message);
             }
-            message.put("status", "200");
+            message.put("status", 200);
             message.put("message", "Se encontraron reservas sin facturas");
             message.put("data", bookingList);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
-            message.put("status", "500");
+            message.put("status", 500);
             message.put("message", "Se produjo un error al buscar las reservas sin facturas");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
