@@ -78,4 +78,12 @@ public class DriverServiceImpl implements DriverService {
         return Optional.ofNullable(driverOptional);
     }
 
+    @Override
+    public Optional<Driver> findByIdNumber(String idNumber) {
+        Optional<Driver> o = repository.findByIdNumber(idNumber);
+
+        return o;
+
+    }
+
 }
