@@ -1,9 +1,13 @@
 package com.mtwproject.backend.mtwprojectbackend.services;
 
+import java.sql.Time;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.mtwproject.backend.mtwprojectbackend.models.entities.Booking;
 import com.mtwproject.backend.mtwprojectbackend.repositories.BookingRepository;
@@ -99,6 +103,19 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<Booking> findBookingsWithoutBill() {
         return repository.findBookingsWithoutBill();
+    }
+
+    @Override
+    public List<Booking> findBookingsByDriverAndPageable(Long idDriver, Pageable pageable) {
+        Time timeWithTolerance = getCurrentTimeWithTolerance();
+        return repository.findBookingsByDriverTimeWithToleranceAndPageable(idDriver, timeWithTolerance,
+                pageable);
+    }
+
+    public Time getCurrentTimeWithTolerance() {
+        LocalTime now = LocalTime.now();
+        LocalTime timeWithTolerance = now.minus(30, ChronoUnit.MINUTES);
+        return Time.valueOf(timeWithTolerance);
     }
 
 }

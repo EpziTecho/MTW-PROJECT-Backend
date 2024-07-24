@@ -1,5 +1,6 @@
 package com.mtwproject.backend.mtwprojectbackend.repositories;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -8,6 +9,7 @@ import com.mtwproject.backend.mtwprojectbackend.models.entities.Bill;
 import com.mtwproject.backend.mtwprojectbackend.models.entities.Booking;
 import com.mtwproject.backend.mtwprojectbackend.models.entities.Company;
 
+import java.sql.Time;
 import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
@@ -38,4 +40,15 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
         @Query("SELECT b FROM Booking b WHERE b.bill IS NULL")
         List<Booking> findBookingsWithoutBill();
+
+        @Query("SELECT b FROM Booking b WHERE b.driver.idDriver = ?1 ORDER BY b.date DESC, b.time DESC")
+        public abstract List<Booking> findBookingsByDriverAndPageable(Long idDriver, Pageable pageable);
+
+        @Query("SELECT b FROM Booking b " +
+                        "WHERE b.driver.idDriver = :idDriver " +
+                        "AND (b.date > CURRENT_DATE OR " +
+                        "(b.date = CURRENT_DATE AND b.time >= :timeWithTolerance)) " +
+                        "ORDER BY b.date ASC, b.time ASC")
+        List<Booking> findBookingsByDriverTimeWithToleranceAndPageable(@Param("idDriver") Long idDriver,
+                        @Param("timeWithTolerance") Time timeWithTolerance, Pageable pageable);
 }

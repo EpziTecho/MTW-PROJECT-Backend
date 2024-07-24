@@ -3,6 +3,8 @@ package com.mtwproject.backend.mtwprojectbackend.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
+
 import com.mtwproject.backend.mtwprojectbackend.models.entities.Booking;
 
 public interface BookingService {
@@ -25,5 +27,7 @@ public interface BookingService {
     Booking updateClientPaymentStatus(Long idBooking, Boolean clientPaymentStatus);
 
     List<Booking> findBookingsWithoutBill();
+
+    List<Booking> findBookingsByDriverAndPageable(Long idDriver, Pageable pageable);
 
 }

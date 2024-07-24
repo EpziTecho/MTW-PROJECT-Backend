@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -299,6 +301,32 @@ public class BookingController {
         } catch (Exception e) {
             message.put("status", 500);
             message.put("message", "Se produjo un error al buscar las reservas sin facturas");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+        }
+    }
+
+    // listar reservas por idDriver y paginado
+    @GetMapping("driver/{idDriver}")
+    @ResponseBody
+    public ResponseEntity<?> findBookingsByDriverAndPageable(@PathVariable("idDriver") Long idDriver,
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "size", required = false, defaultValue = "2") int size) {
+        HashMap<String, Object> message = new HashMap<>();
+        try {
+            Pageable pageable = PageRequest.of(page, size);
+            List<Booking> bookingList = bookingService.findBookingsByDriverAndPageable(idDriver, pageable);
+            if (bookingList.isEmpty()) {
+                message.put("status", 404);
+                message.put("message", "No se encontraron reservas");
+                return ResponseEntity.ok(message);
+            }
+            message.put("status", 200);
+            message.put("message", "Se encontraron reservas");
+            message.put("data", bookingList);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            message.put("status", 500);
+            message.put("message", "Se produjo un error al buscar las reservas");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
     }
