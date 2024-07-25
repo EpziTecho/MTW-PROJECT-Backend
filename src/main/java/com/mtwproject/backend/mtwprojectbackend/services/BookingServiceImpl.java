@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.mtwproject.backend.mtwprojectbackend.models.entities.Booking;
+import com.mtwproject.backend.mtwprojectbackend.models.entities.Driver;
 import com.mtwproject.backend.mtwprojectbackend.repositories.BookingRepository;
 
 @Service
@@ -18,8 +19,8 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     private BookingRepository repository;
     // Constante para el manejo de estados
-    private static final String RESERVE_STATUS = "En Reserva";
-    private static final String PENDING_DRIVER_ASSIGNED_STATUS = "Pendiente";
+    public static final String RESERVE_STATUS = "En Reserva";
+    public static final String PENDING_DRIVER_ASSIGNED_STATUS = "Pendiente";
     public static final String IN_PROCESS_STATUS = "En Proceso";
     public static final String FINALIZED_STATUS = "Finalizado";
 
@@ -116,6 +117,11 @@ public class BookingServiceImpl implements BookingService {
         LocalTime now = LocalTime.now();
         LocalTime timeWithTolerance = now.minus(30, ChronoUnit.MINUTES);
         return Time.valueOf(timeWithTolerance);
+    }
+
+    @Override
+    public Optional<Booking> findByDriverAndStatusIn(Driver driver, List<String> statuses) {
+        return repository.findByDriverAndStatusIn(driver, statuses);
     }
 
 }

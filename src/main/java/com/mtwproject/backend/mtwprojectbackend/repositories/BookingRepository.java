@@ -8,9 +8,11 @@ import org.springframework.data.repository.query.Param;
 import com.mtwproject.backend.mtwprojectbackend.models.entities.Bill;
 import com.mtwproject.backend.mtwprojectbackend.models.entities.Booking;
 import com.mtwproject.backend.mtwprojectbackend.models.entities.Company;
+import com.mtwproject.backend.mtwprojectbackend.models.entities.Driver;
 
 import java.sql.Time;
 import java.util.List;
+import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
@@ -51,4 +53,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
                         "ORDER BY b.date ASC, b.time ASC")
         List<Booking> findBookingsByDriverTimeWithToleranceAndPageable(@Param("idDriver") Long idDriver,
                         @Param("timeWithTolerance") Time timeWithTolerance, Pageable pageable);
+
+        Optional<Booking> findByDriverAndStatusIn(Driver driver, List<String> statuses);
 }

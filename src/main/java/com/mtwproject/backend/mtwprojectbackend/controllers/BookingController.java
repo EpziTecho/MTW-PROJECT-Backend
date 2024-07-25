@@ -1,5 +1,6 @@
 package com.mtwproject.backend.mtwprojectbackend.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mtwproject.backend.mtwprojectbackend.models.entities.Booking;
+import com.mtwproject.backend.mtwprojectbackend.models.entities.Driver;
 import com.mtwproject.backend.mtwprojectbackend.services.BookingService;
 import com.mtwproject.backend.mtwprojectbackend.services.BookingServiceImpl;
 
@@ -328,6 +330,39 @@ public class BookingController {
             message.put("status", 500);
             message.put("message", "Se produjo un error al buscar las reservas");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+        }
+    }
+
+    @GetMapping("active/{idDriver}")
+    public ResponseEntity<?> getMethodName(@PathVariable("idDriver") Long idDriver) {
+        HashMap<String, Object> message = new HashMap<>();
+
+        try {
+            List<String> statuses = new ArrayList<>();
+            statuses.add(BookingServiceImpl.PENDING_DRIVER_ASSIGNED_STATUS);
+            statuses.add(BookingServiceImpl.IN_PROCESS_STATUS);
+
+            Driver driver = new Driver();
+            driver.setIdDriver(idDriver);
+
+            Optional<Booking> booking = bookingService.findByDriverAndStatusIn(driver, statuses);
+
+            if (booking.isEmpty()) {
+                message.put("status", HttpStatus.NOT_FOUND.value());
+                message.put("message", "No se encontraron reservas en proceso");
+                return ResponseEntity.ok(message);
+            }
+
+            message.put("status", HttpStatus.OK.value());
+            message.put("message", "La reserva #" + booking.get().getIdBooking() + " se encuentra en proceso");
+            message.put("data", booking);
+            return ResponseEntity.ok(message);
+
+        } catch (Exception e) {
+            message.put("status", 500);
+            message.put("message", "Se produjo un error al buscar las reservas");
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(message);
         }
     }
 
