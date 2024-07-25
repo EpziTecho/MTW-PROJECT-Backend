@@ -334,7 +334,7 @@ public class BookingController {
     }
 
     @GetMapping("active/{idDriver}")
-    public ResponseEntity<?> getMethodName(@PathVariable("idDriver") Long idDriver) {
+    public ResponseEntity<?> findByDriverAndActive(@PathVariable("idDriver") Long idDriver) {
         HashMap<String, Object> message = new HashMap<>();
 
         try {
