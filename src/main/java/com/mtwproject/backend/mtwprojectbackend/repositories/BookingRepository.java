@@ -55,4 +55,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
                         @Param("timeWithTolerance") Time timeWithTolerance, Pageable pageable);
 
         Optional<Booking> findByDriverAndStatusIn(Driver driver, List<String> statuses);
+
+        // Encontrar por ID Driver y estado, ordenado por fecha y hora
+        List<Booking> findByDriverAndStatusInOrderByDateDescTimeDesc(Driver driver, List<String> statuses,
+                        Pageable pageable);
 }

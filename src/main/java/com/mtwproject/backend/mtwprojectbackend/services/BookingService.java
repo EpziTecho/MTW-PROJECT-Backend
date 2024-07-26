@@ -32,4 +32,7 @@ public interface BookingService {
     List<Booking> findBookingsByDriverAndPageable(Long idDriver, Pageable pageable);
 
     Optional<Booking> findByDriverAndStatusIn(Driver driver, List<String> statuses);
+
+    List<Booking> findByDriverAndStatusInOrderByDateDescTimeDesc(Driver driver, List<String> statuses,
+            Pageable pageable);
 }

@@ -366,4 +366,41 @@ public class BookingController {
         }
     }
 
+    @GetMapping("completed/{idDriver}")
+    public ResponseEntity<?> findByDriverAndFinalized(@PathVariable("idDriver") Long idDriver,
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "size", required = false, defaultValue = "2") int size) {
+        HashMap<String, Object> message = new HashMap<>();
+
+        try {
+            List<String> statuses = new ArrayList<>();
+            statuses.add(BookingServiceImpl.FINALIZED_STATUS);
+
+            Driver driver = new Driver();
+            driver.setIdDriver(idDriver);
+
+            Pageable pageable = PageRequest.of(page, size);
+
+            List<Booking> bookingList = bookingService.findByDriverAndStatusInOrderByDateDescTimeDesc(driver, statuses,
+                    pageable);
+
+            if (bookingList.isEmpty()) {
+                message.put("status", HttpStatus.NOT_FOUND.value());
+                message.put("message", "No se encontraron reservas");
+                return ResponseEntity.ok(message);
+            }
+
+            message.put("status", HttpStatus.OK.value());
+            message.put("message", "Se encontraron reservas");
+            message.put("data", bookingList);
+            return ResponseEntity.ok(message);
+
+        } catch (Exception e) {
+            message.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+            message.put("message", "Se produjo un error al buscar las reservas");
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(message);
+        }
+    }
+
 }

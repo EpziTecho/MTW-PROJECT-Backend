@@ -124,4 +124,10 @@ public class BookingServiceImpl implements BookingService {
         return repository.findByDriverAndStatusIn(driver, statuses);
     }
 
+    @Override
+    public List<Booking> findByDriverAndStatusInOrderByDateDescTimeDesc(Driver driver, List<String> statuses,
+            Pageable pageable) {
+        return repository.findByDriverAndStatusInOrderByDateDescTimeDesc(driver, statuses, pageable);
+    }
+
 }
