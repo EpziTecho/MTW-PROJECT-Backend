@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mtwproject.backend.mtwprojectbackend.models.dto.BookingDTO;
 import com.mtwproject.backend.mtwprojectbackend.models.entities.Booking;
 import com.mtwproject.backend.mtwprojectbackend.models.entities.Driver;
 import com.mtwproject.backend.mtwprojectbackend.services.BookingService;
@@ -400,6 +401,33 @@ public class BookingController {
             message.put("message", "Se produjo un error al buscar las reservas");
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(message);
+        }
+    }
+
+    @PutMapping("updateStatus")
+    public ResponseEntity<?> updateStatus(@RequestBody BookingDTO bookingDTO) {
+        HashMap<String, Object> message = new HashMap<>();
+        try {
+            Optional<Booking> bookingFound = bookingService.findById(bookingDTO.getIdBooking());
+
+            if (bookingFound.isEmpty()) {
+                message.put("status", HttpStatus.NOT_FOUND.value());
+                message.put("message", "La reserva no existe");
+                return ResponseEntity.ok(message);
+            }
+
+            Booking booking = bookingFound.get();
+            booking.setStatus(bookingDTO.getStatus());
+            Booking bookingUpdated = bookingService.saveBooking(booking);
+
+            message.put("status", HttpStatus.OK.value());
+            message.put("message", "El estado de la reserva se ha actualizado correctamente");
+            message.put("data", bookingUpdated);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            message.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+            message.put("message", "Se produjo un error al actualizar el estado de la reserva");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
     }
 

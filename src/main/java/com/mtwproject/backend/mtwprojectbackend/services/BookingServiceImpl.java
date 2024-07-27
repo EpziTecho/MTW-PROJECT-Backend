@@ -21,6 +21,7 @@ public class BookingServiceImpl implements BookingService {
     // Constante para el manejo de estados
     public static final String RESERVE_STATUS = "En Reserva";
     public static final String PENDING_DRIVER_ASSIGNED_STATUS = "Pendiente";
+    public static final String AWAITING_STATUS = "En Espera";
     public static final String IN_PROCESS_STATUS = "En Proceso";
     public static final String FINALIZED_STATUS = "Finalizado";
 
