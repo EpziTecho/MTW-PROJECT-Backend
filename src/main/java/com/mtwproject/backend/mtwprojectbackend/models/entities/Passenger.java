@@ -10,11 +10,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity 
-@Table(name = "PASSENGER")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Entity
+@Table(name = "passenger")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Passenger {
-    @Id 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPassenger;
     private String names;
@@ -23,6 +26,5 @@ public class Passenger {
     private String status;
     private String adress;
     private String phone;
-  
 
 }

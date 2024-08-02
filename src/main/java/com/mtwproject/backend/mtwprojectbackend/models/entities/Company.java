@@ -1,6 +1,5 @@
 package com.mtwproject.backend.mtwprojectbackend.models.entities;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,11 +12,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.validation.constraints.Pattern;
 
-
-
-@Entity 
-@Table(name = "COMPANY")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Entity
+@Table(name = "company")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,5 +37,5 @@ public class Company {
 
     @Pattern(regexp = "^[0-9+()\\s]*$", message = " El numero de telefono esta en un formato invalido")
     private String phone;
-    
+
 }
